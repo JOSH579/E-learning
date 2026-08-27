@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\CourseStatus;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -29,6 +30,7 @@ class Course extends Model
     {
         return [
             'price' => 'decimal:2',
+            'status' => CourseStatus::class,
         ];
     }
 
