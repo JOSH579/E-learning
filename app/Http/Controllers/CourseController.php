@@ -69,7 +69,7 @@ class CourseController extends Controller
     {
         $this->authorize('view', $course);
 
-        $course->load('instructor');
+        $course->load(['instructor', 'modules.lessons']);
 
         return view('courses.show', compact('course'));
     }

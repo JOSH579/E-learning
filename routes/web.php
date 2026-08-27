@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\LessonController;
+use App\Http\Controllers\ModuleController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -21,4 +23,6 @@ Route::post('/logout', [LoginController::class, 'destroy'])
 
 Route::middleware('auth')->group(function () {
     Route::resource('courses', CourseController::class);
+    Route::resource('courses.modules', ModuleController::class)->except(['index']);
+    Route::resource('courses.modules.lessons', LessonController::class)->except(['index']);
 });
