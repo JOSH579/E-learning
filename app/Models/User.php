@@ -3,8 +3,10 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Enums\UserRole;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -22,6 +24,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role',
     ];
 
     /**
@@ -44,6 +47,38 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'role' => UserRole::class,
         ];
+    }
+
+    public function isStudent(): bool
+    {
+        return $this->role === UserRole::Student;
+    }
+
+    public function isInstructor(): bool
+    {
+        return $this->role === UserRole::Instructor;
+    }
+
+    public function isAdmin(): bool
+    {
+        return $this->role === UserRole::Admin;
+    }
+
+    /**
+     * Admins and instructors may own courses.
+     */
+    public function canInstruct(): bool
+    {
+        return $this->isInstructor() || $this->isAdmin();
+    }
+
+    /**
+     * Get the courses this user instructs.
+     */
+    public function courses(): HasMany
+    {
+        return $this->hasMany(Course::class, 'instructor_id');
     }
 }

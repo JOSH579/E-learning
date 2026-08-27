@@ -17,7 +17,7 @@
         <!-- Header Section -->
         <div style="text-align: center;">
             <h1 class="main-heading">WELCOME - TO LEARN MORE</h1>
-            <img src="picha.jpg" alt="E-leraning">
+            <img src="public\images\picha.jpg" alt="E-leraning">
                 </div>
 
         <br><br>
