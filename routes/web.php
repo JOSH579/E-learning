@@ -5,6 +5,7 @@ use App\Http\Controllers\CourseController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
+ setup/initial-project
     return auth()->check()
         ? redirect()->route('courses.index')
         : redirect()->route('login');
@@ -21,4 +22,8 @@ Route::post('/logout', [LoginController::class, 'destroy'])
 
 Route::middleware('auth')->group(function () {
     Route::resource('courses', CourseController::class);
+=======
+    return view('blaze');
 });
+Route::get('/b', function () {
+    return view('b');});
