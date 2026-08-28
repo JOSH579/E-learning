@@ -1,21 +1,27 @@
 <?php
 
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\LessonController;
 use App\Http\Controllers\ModuleController;
+use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-
     return auth()->check()
         ? redirect()->route('courses.index')
-        : redirect()->route('login');
+        : redirect()->route('blaze');
 });
+
+Route::get('/blaze', [WelcomeController::class, 'blaze'])->name('blaze');
 
 Route::middleware('guest')->group(function () {
     Route::get('/login', [LoginController::class, 'create'])->name('login');
     Route::post('/login', [LoginController::class, 'store']);
+
+    Route::get('/b', [RegisterController::class, 'create'])->name('register');
+    Route::post('/b', [RegisterController::class, 'store']);
 });
 
 Route::post('/logout', [LoginController::class, 'destroy'])
@@ -28,6 +34,3 @@ Route::middleware('auth')->group(function () {
     Route::resource('courses.modules', ModuleController::class)->except(['index']);
     Route::resource('courses.modules.lessons', LessonController::class)->except(['index']);
 });
-
-Route::get('/blaze', fn() => view('blaze'));
-Route::get('/b', fn() => view('b'));
