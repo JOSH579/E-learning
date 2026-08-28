@@ -15,7 +15,7 @@ class ModulePolicy
 
     public function view(User $user, Module $module): bool
     {
-        return true;
+        return $user->can('view', $module->course);
     }
 
     public function create(User $user, Course $course): bool

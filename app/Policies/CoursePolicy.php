@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\Enums\CourseStatus;
 use App\Models\Course;
 use App\Models\User;
 
@@ -16,11 +17,20 @@ class CoursePolicy
     }
 
     /**
-     * Anyone logged in can view a single course.
+     * Students may only view published courses.
+     * Instructors may view their own; admins may view any.
      */
     public function view(User $user, Course $course): bool
     {
-        return true;
+        if ($user->isAdmin()) {
+            return true;
+        }
+
+        if ($user->canInstruct() && $course->instructor_id === $user->id) {
+            return true;
+        }
+
+        return $user->isStudent() && $course->status === CourseStatus::Published;
     }
 
     /**

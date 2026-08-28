@@ -24,6 +24,10 @@ class CourseController extends Controller
         $courses = Course::query()
             ->with('instructor')
             ->when(
+                $user->isStudent(),
+                fn ($query) => $query->where('status', CourseStatus::Published),
+            )
+            ->when(
                 $user->canInstruct() && ! $user->isAdmin(),
                 fn ($query) => $query->where('instructor_id', $user->id),
             )
