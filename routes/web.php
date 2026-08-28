@@ -26,6 +26,3 @@ Route::middleware('auth')->group(function () {
 
 Route::get('/blaze', fn() => view('blaze'));
 Route::get('/b', fn() => view('b'));
-
-Route::get('/b', function () {
-    return view('b');});
