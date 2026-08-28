@@ -7,7 +7,6 @@ use App\Http\Controllers\ModuleController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
- 
     return auth()->check()
         ? redirect()->route('courses.index')
         : redirect()->route('login');
@@ -30,3 +29,5 @@ Route::middleware('auth')->group(function () {
 
 Route::get('/blaze', fn() => view('blaze'));
 Route::get('/b', fn() => view('b'));
+
+  
