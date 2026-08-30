@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Enums\CourseStatus;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
@@ -58,5 +59,23 @@ class Course extends Model
     public function lessons(): HasManyThrough
     {
         return $this->hasManyThrough(Lesson::class, Module::class);
+    }
+
+    /**
+     * Get enrollments for this course.
+     */
+    public function enrollments(): HasMany
+    {
+        return $this->hasMany(Enrollment::class);
+    }
+
+    /**
+     * Get students enrolled in this course.
+     */
+    public function students(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'enrollments')
+            ->withPivot('enrolled_at')
+            ->withTimestamps();
     }
 }

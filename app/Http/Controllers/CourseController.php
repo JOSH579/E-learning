@@ -34,7 +34,11 @@ class CourseController extends Controller
             ->latest()
             ->paginate(10);
 
-        return view('courses.index', compact('courses'));
+        $enrolledCourseIds = $user->isStudent()
+            ? $user->enrollments()->pluck('course_id')
+            : collect();
+
+        return view('courses.index', compact('courses', 'enrolledCourseIds'));
     }
 
     /**
@@ -69,13 +73,15 @@ class CourseController extends Controller
     /**
      * Show one course (Read — one).
      */
-    public function show(Course $course): View
+    public function show(Request $request, Course $course): View
     {
         $this->authorize('view', $course);
 
         $course->load(['instructor', 'modules.lessons']);
 
-        return view('courses.show', compact('course'));
+        $isEnrolled = $request->user()->isEnrolledIn($course);
+
+        return view('courses.show', compact('course', 'isEnrolled'));
     }
 
     /**

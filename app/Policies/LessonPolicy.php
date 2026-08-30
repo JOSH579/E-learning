@@ -13,9 +13,24 @@ class LessonPolicy
         return true;
     }
 
+    /**
+     * Instructors/admins follow course ownership; students need enrollment.
+     */
     public function view(User $user, Lesson $lesson): bool
     {
-        return $user->can('view', $lesson->module->course);
+        $course = $lesson->module->course;
+
+        if ($user->isAdmin()) {
+            return true;
+        }
+
+        if ($user->canInstruct() && $course->instructor_id === $user->id) {
+            return true;
+        }
+
+        return $user->isStudent()
+            && $user->can('view', $course)
+            && $user->isEnrolledIn($course);
     }
 
     public function create(User $user, Module $module): bool
