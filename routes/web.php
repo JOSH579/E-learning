@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\EnrollmentController;
 use App\Http\Controllers\LessonController;
 use App\Http\Controllers\ModuleController;
 use App\Http\Controllers\WelcomeController;
@@ -33,4 +34,8 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('courses.modules', ModuleController::class)->except(['index']);
     Route::resource('courses.modules.lessons', LessonController::class)->except(['index']);
+
+    Route::get('/my-courses', [EnrollmentController::class, 'index'])->name('enrollments.index');
+    Route::post('/courses/{course}/enroll', [EnrollmentController::class, 'store'])->name('courses.enroll');
+    Route::delete('/courses/{course}/enroll', [EnrollmentController::class, 'destroy'])->name('courses.unenroll');
 });

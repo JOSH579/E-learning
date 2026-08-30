@@ -34,6 +34,9 @@
                                 <a href="{{ route('courses.show', $course) }}" class="font-medium hover:underline">
                                     {{ $course->title }}
                                 </a>
+                                @if ($enrolledCourseIds->contains($course->id))
+                                    <span class="ml-2 text-xs text-emerald-700">Enrolled</span>
+                                @endif
                             </td>
                             <td class="px-4 py-3 text-slate-600">{{ $course->instructor?->name }}</td>
                             <td class="px-4 py-3">{{ number_format((float) $course->price, 2) }}</td>

@@ -16,6 +16,9 @@
             <nav class="flex items-center gap-4 text-sm">
                 @auth
                     <a href="{{ route('courses.index') }}" class="text-slate-600 hover:text-slate-900">Courses</a>
+                    @if (auth()->user()->isStudent())
+                        <a href="{{ route('enrollments.index') }}" class="text-slate-600 hover:text-slate-900">My courses</a>
+                    @endif
                     @if (auth()->user()->canInstruct())
                         <a href="{{ route('courses.create') }}" class="text-slate-600 hover:text-slate-900">New course</a>
                     @endif
