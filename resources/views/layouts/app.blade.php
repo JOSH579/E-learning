@@ -9,7 +9,7 @@
 <body class="min-h-screen bg-slate-100 text-slate-900 antialiased">
     <header class="border-b border-slate-200 bg-white">
         <div class="mx-auto flex max-w-5xl items-center justify-between gap-4 px-4 py-4">
-            <a href="{{ route('courses.index') }}" class="text-lg font-semibold tracking-tight">
+            <a href="{{ auth()->check() ? route('courses.index') : route('blaze') }}" class="text-lg font-semibold tracking-tight">
                 {{ config('app.name', 'E-learning') }}
             </a>
 
@@ -28,6 +28,8 @@
                         <button type="submit" class="text-slate-600 hover:text-slate-900">Log out</button>
                     </form>
                 @else
+                    <a href="{{ route('blaze') }}" class="text-slate-600 hover:text-slate-900">Home</a>
+                    <a href="{{ route('register') }}" class="text-slate-600 hover:text-slate-900">Register</a>
                     <a href="{{ route('login') }}" class="text-slate-600 hover:text-slate-900">Log in</a>
                 @endauth
             </nav>
