@@ -136,15 +136,6 @@
         </div>
         @error('gender')<p class="error">{{ $message }}</p>@enderror
 
-        <label for="preferred_course">Select Preferred Course:</label>
-        <select id="preferred_course" name="preferred_course" required>
-            <option value="">-- Select Course --</option>
-            <option value="cs" @selected(old('preferred_course') === 'cs')>Computer Science</option>
-            <option value="it" @selected(old('preferred_course') === 'it')>Information Technology (IT)</option>
-            <option value="cyber_security" @selected(old('preferred_course') === 'cyber_security')>Cyber Security</option>
-        </select>
-        @error('preferred_course')<p class="error">{{ $message }}</p>@enderror
-
         <label for="password">Password:</label>
         <input type="password" id="password" name="password" placeholder="At least 8 characters" required>
         @error('password')<p class="error">{{ $message }}</p>@enderror

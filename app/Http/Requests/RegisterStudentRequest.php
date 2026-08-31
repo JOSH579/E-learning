@@ -23,7 +23,6 @@ class RegisterStudentRequest extends FormRequest
             'phone' => ['required', 'string', 'max:30'],
             'date_of_birth' => ['required', 'date', 'before:today'],
             'gender' => ['required', Rule::in(['male', 'female'])],
-            'preferred_course' => ['required', Rule::in(['cs', 'it', 'cyber_security'])],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ];
     }
