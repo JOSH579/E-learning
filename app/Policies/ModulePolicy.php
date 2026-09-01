@@ -1,0 +1,50 @@
+<?php
+
+namespace App\Policies;
+
+use App\Models\Course;
+use App\Models\Module;
+use App\Models\User;
+
+class ModulePolicy
+{
+    public function viewAny(User $user): bool
+    {
+        return true;
+    }
+
+    /**
+     * Instructors/admins follow course ownership; students need enrollment.
+     */
+    public function view(User $user, Module $module): bool
+    {
+        $course = $module->course;
+
+        if ($user->isAdmin()) {
+            return true;
+        }
+
+        if ($user->canInstruct() && $course->instructor_id === $user->id) {
+            return true;
+        }
+
+        return $user->isStudent()
+            && $user->can('view', $course)
+            && $user->isEnrolledIn($course);
+    }
+
+    public function create(User $user, Course $course): bool
+    {
+        return $user->can('update', $course);
+    }
+
+    public function update(User $user, Module $module): bool
+    {
+        return $user->can('update', $module->course);
+    }
+
+    public function delete(User $user, Module $module): bool
+    {
+        return $user->can('update', $module->course);
+    }
+}
