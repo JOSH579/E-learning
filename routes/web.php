@@ -40,8 +40,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/courses/{course}/enroll', [EnrollmentController::class, 'destroy'])->name('courses.unenroll');
 });
 
-Route::get('/VD', function () {
-    return view('VDg');
+Route::get('/search', function () {
+    return view('courses.search');
 });
 
 Route::get('/register', function() {
