@@ -75,71 +75,37 @@
         <div class="cta">
             <a href="{{ route('login') }}" class="secondary">Already have an account?</a>
         </div>
+    </section>
 
-        @if ($publishedCourses->isNotEmpty())
-            <div class="courses-box">
-                <h2>Published courses on our platform</h2>
-                <ul>
-                    @foreach ($publishedCourses as $course)
-                        <li>
-                            <strong>{{ $course->title }}</strong>
-                            — {{ number_format((float) $course->price, 2) }}
-                            @auth
-                                <a href="{{ route('courses.show', $course) }}">View course</a>
-                            @endauth
-                        </li>
-                    @endforeach
-                </ul>
+    @if ($publishedCourses->isNotEmpty())
+        <section class="mb-12">
+            <div class="mb-6 flex items-end justify-between gap-4">
+                <div>
+                    <h2 class="text-xl font-semibold tracking-tight">Published courses</h2>
+                    <p class="mt-1 text-sm text-slate-600">Browse what is available on our platform.</p>
+                </div>
             </div>
-        @endif
 
-        <br>
-
-        <label for="course-select">Explore subject areas:</label>
-        <select id="course-select">
-            <option value="">-- Choose Course --</option>
-            <option value="cs">Computer Science</option>
-            <option value="it">Information Technology</option>
-            <option value="cyber">Cyber Security</option>
-        </select>
-
-        <hr>
-
-        <h2>Computer Science</h2>
-        <p>Key subjects covered in Computer Science:</p>
-        <ul>
-            <li>Data Structures & Algorithms</li>
-            <li>Object-Oriented Programming</li>
-            <li>Operating Systems</li>
-            <li>Database Management Systems</li>
-            <li>Software Engineering</li>
-            <li>Computer Architecture</li>
-        </ul>
-
-        <hr>
-
-        <h2>Information Technology</h2>
-        <p>Key subjects covered in Information Technology:</p>
-        <ul>
-            <li>Web Development & Web Technologies</li>
-            <li>Computer Networks & Communication</li>
-            <li>Cloud Computing</li>
-            <li>Database Administration</li>
-            <li>Systems Analysis and Design</li>
-            <li>IT Project Management</li>
-        </ul>
-
-        <hr>
-
-        <h2>Cyber Security</h2>
-        <p>Key subjects covered in Cyber Security:</p>
-        <ul>
-            <li>Network Security & Firewalls</li>
-            <li>Ethical Hacking & Penetration Testing</li>
-            <li>Cryptography & Data Protection</li>
-            <li>Digital Forensics & Incident Response</li>
-            <li>Cyber Laws, Risk & Compliance</li>
-            <li>Application Security</li>
-        </ul>
-    </body>
-</html>
+            <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                @foreach ($publishedCourses as $course)
+                    <article class="flex flex-col border border-slate-200 bg-white p-5 shadow-sm">
+                        <h3 class="font-semibold text-slate-900">{{ $course->title }}</h3>
+                        <p class="mt-2 flex-1 text-sm text-slate-600 line-clamp-3">
+                            {{ $course->description ?: 'No description provided.' }}
+                        </p>
+                        <div class="mt-4 flex items-center justify-between gap-3 text-sm">
+                            <span class="font-medium text-slate-900">{{ number_format((float) $course->price, 2) }}</span>
+                            @auth
+                                <a href="{{ route('courses.show', $course) }}" class="text-slate-600 hover:text-slate-900 hover:underline">
+                                    View course
+                                </a>
+                            @else
+                                <span class="text-slate-400">Log in to enroll</span>
+                            @endauth
+                        </div>
+                    </article>
+                @endforeach
+            </div>
+        </section>
+    @endif
+@endsection

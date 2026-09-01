@@ -102,67 +102,131 @@
     <a href="{{ route('login') }}">Log in</a>
 </div>
 
-<div class="form-container">
-    <h3>Student Registration Form</h3>
+@section('content')
+    <div class="mx-auto max-w-md">
+        <h1 class="text-2xl font-semibold tracking-tight">Student registration</h1>
+        <p class="mt-2 text-sm text-slate-600">
+            Create your account to browse courses and enroll as a student.
+        </p>
 
-    @if ($errors->any())
-        <div class="alert">
-            <ul style="margin: 0; padding-left: 18px;">
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
+        <form method="POST" action="{{ route('register') }}" class="mt-8 space-y-4">
+            @csrf
 
-    <form action="{{ route('register') }}" method="POST">
-        @csrf
+            <div>
+                <label for="name" class="mb-1 block text-sm font-medium">Full name</label>
+                <input
+                    id="name"
+                    type="text"
+                    name="name"
+                    value="{{ old('name') }}"
+                    placeholder="e.g. John Doe"
+                    required
+                    autofocus
+                    class="w-full border border-slate-300 bg-white px-3 py-2 text-sm"
+                >
+                @error('name')
+                    <p class="mt-1 text-sm text-red-700">{{ $message }}</p>
+                @enderror
+            </div>
 
-        <label for="name">Full Name:</label>
-        <input type="text" id="name" name="name" value="{{ old('name') }}" placeholder="e.g. John Doe" required>
-        @error('name')<p class="error">{{ $message }}</p>@enderror
+            <div>
+                <label for="email" class="mb-1 block text-sm font-medium">Email address</label>
+                <input
+                    id="email"
+                    type="email"
+                    name="email"
+                    value="{{ old('email') }}"
+                    placeholder="example@gmail.com"
+                    required
+                    class="w-full border border-slate-300 bg-white px-3 py-2 text-sm"
+                >
+                @error('email')
+                    <p class="mt-1 text-sm text-red-700">{{ $message }}</p>
+                @enderror
+            </div>
 
-        <label for="email">Email Address:</label>
-        <input type="email" id="email" name="email" value="{{ old('email') }}" placeholder="example@gmail.com" required>
-        @error('email')<p class="error">{{ $message }}</p>@enderror
+            <div>
+                <label for="phone" class="mb-1 block text-sm font-medium">Phone number</label>
+                <input
+                    id="phone"
+                    type="text"
+                    name="phone"
+                    value="{{ old('phone') }}"
+                    placeholder="+255 7XX XXX XXX"
+                    required
+                    class="w-full border border-slate-300 bg-white px-3 py-2 text-sm"
+                >
+                @error('phone')
+                    <p class="mt-1 text-sm text-red-700">{{ $message }}</p>
+                @enderror
+            </div>
 
-        <label for="phone">Phone Number:</label>
-        <input type="text" id="phone" name="phone" value="{{ old('phone') }}" placeholder="+255 7XX XXX XXX" required>
-        @error('phone')<p class="error">{{ $message }}</p>@enderror
+            <div>
+                <label for="date_of_birth" class="mb-1 block text-sm font-medium">Date of birth</label>
+                <input
+                    id="date_of_birth"
+                    type="date"
+                    name="date_of_birth"
+                    value="{{ old('date_of_birth') }}"
+                    required
+                    class="w-full border border-slate-300 bg-white px-3 py-2 text-sm"
+                >
+                @error('date_of_birth')
+                    <p class="mt-1 text-sm text-red-700">{{ $message }}</p>
+                @enderror
+            </div>
 
-        <label for="date_of_birth">Date of Birth:</label>
-        <input type="date" id="date_of_birth" name="date_of_birth" value="{{ old('date_of_birth') }}" required>
-        @error('date_of_birth')<p class="error">{{ $message }}</p>@enderror
+            <fieldset>
+                <legend class="mb-2 block text-sm font-medium">Gender</legend>
+                <div class="flex gap-6 text-sm text-slate-700">
+                    <label class="flex items-center gap-2">
+                        <input type="radio" name="gender" value="male" @checked(old('gender') === 'male') required>
+                        Male
+                    </label>
+                    <label class="flex items-center gap-2">
+                        <input type="radio" name="gender" value="female" @checked(old('gender') === 'female')>
+                        Female
+                    </label>
+                </div>
+                @error('gender')
+                    <p class="mt-1 text-sm text-red-700">{{ $message }}</p>
+                @enderror
+            </fieldset>
 
-        <label>Gender:</label>
-        <div class="gender-options">
-            <input type="radio" id="male" name="gender" value="male" @checked(old('gender') === 'male') required>
-            <label for="male">Male</label>
+            <div>
+                <label for="password" class="mb-1 block text-sm font-medium">Password</label>
+                <input
+                    id="password"
+                    type="password"
+                    name="password"
+                    placeholder="At least 8 characters"
+                    required
+                    class="w-full border border-slate-300 bg-white px-3 py-2 text-sm"
+                >
+                @error('password')
+                    <p class="mt-1 text-sm text-red-700">{{ $message }}</p>
+                @enderror
+            </div>
 
-            <input type="radio" id="female" name="gender" value="female" @checked(old('gender') === 'female')>
-            <label for="female">Female</label>
-        </div>
-        @error('gender')<p class="error">{{ $message }}</p>@enderror
+            <div>
+                <label for="password_confirmation" class="mb-1 block text-sm font-medium">Confirm password</label>
+                <input
+                    id="password_confirmation"
+                    type="password"
+                    name="password_confirmation"
+                    required
+                    class="w-full border border-slate-300 bg-white px-3 py-2 text-sm"
+                >
+            </div>
 
-        <label for="preferred_course">Select Preferred Course:</label>
-        <select id="preferred_course" name="preferred_course" required>
-            <option value="">-- Select Course --</option>
-            <option value="cs" @selected(old('preferred_course') === 'cs')>Computer Science</option>
-            <option value="it" @selected(old('preferred_course') === 'it')>Information Technology (IT)</option>
-            <option value="cyber_security" @selected(old('preferred_course') === 'cyber_security')>Cyber Security</option>
-        </select>
-        @error('preferred_course')<p class="error">{{ $message }}</p>@enderror
+            <button type="submit" class="w-full bg-slate-900 px-4 py-2.5 text-sm font-medium text-white hover:bg-slate-800">
+                Register now
+            </button>
+        </form>
 
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" placeholder="At least 8 characters" required>
-        @error('password')<p class="error">{{ $message }}</p>@enderror
-
-        <label for="password_confirmation">Confirm Password:</label>
-        <input type="password" id="password_confirmation" name="password_confirmation" required>
-
-        <button type="submit">Register Now</button>
-    </form>
-</div>
-
-</body>
-</html>
+        <p class="mt-6 text-center text-sm text-slate-600">
+            Already have an account?
+            <a href="{{ route('login') }}" class="font-medium text-slate-900 hover:underline">Log in</a>
+        </p>
+    </div>
+@endsection
