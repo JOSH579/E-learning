@@ -1,6 +1,106 @@
-@extends('layouts.app')
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Registration Form - e-Learning School</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f7f6;
+            padding: 20px;
+        }
 
-@section('title', 'Student Registration')
+        .nav {
+            max-width: 500px;
+            margin: 0 auto 16px;
+            text-align: right;
+        }
+        .nav a {
+            color: #007bff;
+            text-decoration: none;
+            margin-left: 12px;
+        }
+
+        .form-container {
+            max-width: 500px;
+            background: #ffffff;
+            padding: 25px;
+            margin: 0 auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        h2, h3 {
+            text-align: center;
+            color: #333;
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin-top: 15px;
+            color: #555;
+        }
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        input[type="date"],
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .gender-options {
+            margin-top: 5px;
+        }
+        .gender-options label {
+            display: inline;
+            font-weight: normal;
+            margin-right: 15px;
+        }
+        button {
+            width: 100%;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 12px;
+            margin-top: 20px;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .error {
+            color: #b91c1c;
+            font-size: 14px;
+            margin-top: 4px;
+        }
+        .alert {
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+            color: #991b1b;
+            padding: 12px;
+            border-radius: 4px;
+            margin-bottom: 16px;
+        }
+
+    </style>
+</head>
+<body>
+
+
+
+
+<div class="nav">
+    <a href="{{ route('blaze') }}">Back to welcome page</a>
+    <a href="{{ route('login') }}">Log in</a>
+</div>
 
 @section('content')
     <div class="mx-auto max-w-md">

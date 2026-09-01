@@ -39,3 +39,11 @@ Route::middleware('auth')->group(function () {
     Route::post('/courses/{course}/enroll', [EnrollmentController::class, 'store'])->name('courses.enroll');
     Route::delete('/courses/{course}/enroll', [EnrollmentController::class, 'destroy'])->name('courses.unenroll');
 });
+
+Route::get('/VD', function () {
+    return view('VDg');
+});
+
+Route::get('/register', function() {
+    return view('b');
+});
