@@ -123,6 +123,7 @@
                 Register now
             </button>
         </form>
+        
 
         <p class="mt-6 text-center text-sm text-slate-600">
             Already have an account?
