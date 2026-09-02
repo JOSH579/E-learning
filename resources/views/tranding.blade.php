@@ -227,7 +227,7 @@
         <!-- Sehemu Kuu ya popular cource -->
         <div class="sponsors-section">
             <h2>Tranding courses</h2>
-            <div class="sub-title">We are here to offer you prestigious courses.</div>
+            <div class="sub-title">:We are here to offer you prestigious courses.</div>
 
             <div class="sponsors-grid">
 
