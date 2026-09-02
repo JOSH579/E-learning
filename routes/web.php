@@ -51,3 +51,6 @@ Route::get('/register', function() {
 Route::get('/product', function() {
     return view('product');
 });
+Route::get('tranding',function() {
+    return view('tranding');
+});
