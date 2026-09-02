@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\CourseSearchController;
 use App\Http\Controllers\EnrollmentController;
 use App\Http\Controllers\LessonController;
 use App\Http\Controllers\ModuleController;
@@ -38,19 +39,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/my-courses', [EnrollmentController::class, 'index'])->name('enrollments.index');
     Route::post('/courses/{course}/enroll', [EnrollmentController::class, 'store'])->name('courses.enroll');
     Route::delete('/courses/{course}/enroll', [EnrollmentController::class, 'destroy'])->name('courses.unenroll');
+
+    Route::get('/courses/search', [CourseSearchController::class, 'create'])->name('courses.search');
+    Route::get('/courses/search/results', [CourseSearchController::class, 'index'])->name('courses.search.results');
 });
 
-Route::get('/search', function () {
-    return view('courses.search');
-});
+Route::redirect('/search', '/courses/search');
 
-Route::get('/register', function() {
-    return view('b');
-});
-
-Route::get('/product', function() {
-    return view('product');
-});
-Route::get('tranding',function() {
+Route::get('tranding', function () {
     return view('tranding');
 });
