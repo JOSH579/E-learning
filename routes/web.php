@@ -47,3 +47,10 @@ Route::get('/search', function () {
 Route::get('/register', function() {
     return view('b');
 });
+
+Route::get('/product', function() {
+    return view('product');
+});
+Route::get('tranding',function() {
+    return view('tranding');
+});
