@@ -45,3 +45,7 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::redirect('/search', '/courses/search');
+
+Route::get('tranding', function () {
+    return view('tranding');
+});
