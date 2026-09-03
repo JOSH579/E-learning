@@ -227,7 +227,7 @@
         <!-- Sehemu Kuu ya popular cource -->
         <div class="sponsors-section">
             <h2>Tranding courses</h2>
-            <div class="sub-title">We are here to offer you prestigious courses.</div>
+            <div class="sub-title">:We are here to offer you prestigious courses.</div>
 
             <div class="sponsors-grid">
 
@@ -254,6 +254,31 @@
 
             </div>
         </div>
+<!-----sehem ya skill---->
+        <div class="sponsor-section">
+            <h3>POPULAR SKILLS</h3>
+        <div class="sub-title">know the popular skills</div>
+
+    <div class="sponsor-grid">
+
+        <div class="sponsor-card DATA">
+        <div class="sponsor-logo-placeholder">DATA</div>
+        <h1>Data Analysis & Management</h1>
+        <p>Interpreting complex datasets using tools like SQL, Python, Excel, and visualization platforms (Power BI, Tableau) to drive business decisions.</p>
+        </div>
+
+                <div class="sponsor-card comp">
+                <div class="sponsor-logo-placeholder">Comp</div>
+                <h1>Cloud Computing & DevOps</h1>
+                <p>Managing infrastructure and deployments using platforms like AWS, Azure, and toolsets like Docker and Kubernetes.</p>
+            </div>
+
+            <div class="sponsor-card soft">
+            <div class="sponsor-logo-placeholder">soft</div>
+            <h1>Software & Web Development</h1>
+            <p>Building scalable software using frameworks and languages such as C, JavaScript, Python, and modern backend frameworks (e.g., Laravel, Node.js).</p>
+    </div>
+        </div>
 
         <!-- Sehemu ya Mawasiliano -->
         <div class="contact-card">
@@ -267,6 +292,7 @@
             <div class="contact-info">
                 <strong>Anwani:</strong>  Arusha.
             </div>
+
         </div>
 
     </div>
