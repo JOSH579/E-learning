@@ -17,4 +17,16 @@ class WelcomeController extends Controller
 
         return view('blaze', compact('publishedCourses'));
     }
+
+    public function tranding(): View
+    {
+        $courses = Course::query()
+            ->with('instructor')
+            ->where('status', CourseStatus::Published)
+            ->latest()
+            ->take(6)
+            ->get();
+
+        return view('tranding', compact('courses'));
+    }
 }
