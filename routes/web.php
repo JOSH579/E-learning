@@ -31,6 +31,11 @@ Route::post('/logout', [LoginController::class, 'destroy'])
     ->name('logout');
 
 Route::middleware('auth')->group(function () {
+    // Register search before the courses resource so /courses/search
+    // is not treated as courses/{course} with course = "search".
+    Route::get('/courses/search', [CourseSearchController::class, 'create'])->name('courses.search');
+    Route::get('/courses/search/results', [CourseSearchController::class, 'index'])->name('courses.search.results');
+
     Route::resource('courses', CourseController::class);
 
     Route::resource('courses.modules', ModuleController::class)->except(['index']);
@@ -39,13 +44,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/my-courses', [EnrollmentController::class, 'index'])->name('enrollments.index');
     Route::post('/courses/{course}/enroll', [EnrollmentController::class, 'store'])->name('courses.enroll');
     Route::delete('/courses/{course}/enroll', [EnrollmentController::class, 'destroy'])->name('courses.unenroll');
-
-    Route::get('/courses/search', [CourseSearchController::class, 'create'])->name('courses.search');
-    Route::get('/courses/search/results', [CourseSearchController::class, 'index'])->name('courses.search.results');
 });
 
 Route::redirect('/search', '/courses/search');
 
-Route::get('tranding', function () {
-    return view('tranding');
-});
+Route::get('/tranding', [WelcomeController::class, 'tranding'])->name('tranding');
+Route::redirect('/trading', '/tranding');
+
+Route::redirect('/trading', '/tranding');
