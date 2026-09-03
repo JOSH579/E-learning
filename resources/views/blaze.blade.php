@@ -18,6 +18,10 @@
             class="mx-auto mt-8 max-h-72 w-full max-w-3xl rounded-lg border border-slate-200 object-cover shadow-sm"
         >
 
+            <a href="{{route('tranding')}}"
+             class="mt-8 flex flex-wrap items-center justify-center gap-3 bg-emerald-600 text-white p-4 rounded-xl">
+click here
+            </a>
         <div class="mt-8 flex flex-wrap items-center justify-center gap-3">
             <a
                 href="{{ route('register') }}"
