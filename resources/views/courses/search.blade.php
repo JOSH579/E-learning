@@ -222,7 +222,7 @@
                 </select>
             </div>
     <!-- TAB 2: SEARCH FORM -->
-        <form action="search_results.php" method="GET">
+        <form action="{{ route('courses.search.results') }}" method="GET">
             <div class="form-group">
                 <label for="keyword">Search Keyword:</label>
                 <input type="text" id="keyword" name="keyword" placeholder="e.g., Data Structures, SQL, Python..." required>
