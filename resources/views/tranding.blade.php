@@ -230,30 +230,31 @@
             <div class="sub-title">:We are here to offer you prestigious courses.</div>
 
             <div class="sponsors-grid">
-
-                <!-- Courses 1: ATC -->
-                <div class="sponsor-card">
-                    <div class="sponsor-logo-placeholder">ECM</div>
-                    <h3> Economics</h3>
-                    <p>"Economists are the ones who shape the policies that govern nations and major corporations. Studying this course equips you with the language and logic used by top leaders to make strategic decisions."</p>
-                </div>
-
-                <!-- Sponsor 2: Tanzania Education Sector -->
-                <div class="sponsor-card tz-edu">
-                    <div class="sponsor-logo-placeholder">HW</div>
-                    <h3>Health & Wellbeing</h3>
-                    <p>With rising awareness surrounding anxiety, depression, and workplace burnout, there is an urgent need for professionals trained in preventive mental health care, holistic wellness, and psychological support systems.</p>
-                </div>
-
-                <!-- Sponsor 3: SAUT -->
-                <div class="sponsor-card saut">
-                    <div class="sponsor-logo-placeholder">IT</div>
-                    <h3>Information techonology</h3>
-                    <p>"This course teaches you to think logically and strategically. You learn to analyze data, troubleshoot complex systems, and make impactful technical decisions—qualities that make an IT professional a strong leader anywhere."</p>
-                </div>
-
+            @forelse ($courses as $course)
+        <div class="sponsor-card">
+            <div class="sponsor-logo-placeholder">
+                {{ strtoupper(\Illuminate\Support\Str::substr($course->title, 0, 2)) }}
             </div>
+            <h3>{{ $course->title }}</h3>
+            <p>{{ \Illuminate\Support\Str::limit($course->description ?: 'No description provided.', 180) }}</p>
+            <p style="margin-top: 12px; text-align: center;">
+                @auth
+                    <a href="{{ route('courses.show', $course) }}" style="color: #0d3b66; font-weight: bold; text-decoration: none;">
+                        View course
+                    </a>
+                @else
+                    <a href="{{ route('login') }}" style="color: #0d3b66; font-weight: bold; text-decoration: none;">
+                        Log in to enroll
+                    </a>
+                @endauth
+            </p>
         </div>
+        @empty
+        <p class="sub-title">No published courses yet. Check back soon.</p>
+        @endforelse
+        </div>
+
+    </div>
 <!-----sehem ya skill---->
         <div class="sponsor-section">
             <h3>POPULAR SKILLS</h3>

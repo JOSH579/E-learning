@@ -48,8 +48,7 @@ Route::middleware('auth')->group(function () {
 
 Route::redirect('/search', '/courses/search');
 
-Route::get('/tranding', function () {
-    return view('tranding');
-})->name('tranding');
+Route::get('/tranding', [WelcomeController::class, 'tranding'])->name('tranding');
+Route::redirect('/trading', '/tranding');
 
 Route::redirect('/trading', '/tranding');
