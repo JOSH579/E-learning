@@ -109,4 +109,9 @@ class User extends Authenticatable
     {
         return $this->enrollments()->where('course_id', $course->id)->exists();
     }
+
+    public function shopOrders(): HasMany
+    {
+        return $this->hasMany(ShopOrder::class);
+    }
 }
