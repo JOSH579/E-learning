@@ -7,6 +7,7 @@ use App\Http\Controllers\CourseSearchController;
 use App\Http\Controllers\EnrollmentController;
 use App\Http\Controllers\LessonController;
 use App\Http\Controllers\ModuleController;
+use App\Http\Controllers\ShopController;
 use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
 
@@ -35,6 +36,7 @@ Route::middleware('auth')->group(function () {
     // is not treated as courses/{course} with course = "search".
     Route::get('/courses/search', [CourseSearchController::class, 'create'])->name('courses.search');
     Route::get('/courses/search/results', [CourseSearchController::class, 'index'])->name('courses.search.results');
+    Route::post('/shop/orders', [ShopController::class, 'store'])->name('shop.orders.store');
 
     Route::resource('courses', CourseController::class);
 

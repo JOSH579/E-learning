@@ -6,6 +6,7 @@ use App\Enums\CourseStatus;
 use App\Enums\UserRole;
 use App\Http\Requests\SearchCoursesRequest;
 use App\Models\Course;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
@@ -15,7 +16,12 @@ class CourseSearchController extends Controller
     {
         abort_unless($request->user()?->role === UserRole::Student, 403);
 
-        return view('courses.search');
+        $products = Product::query()
+            ->where('is_active', true)
+            ->orderBy('name')
+            ->get();
+
+        return view('courses.search', compact('products'));
     }
 
     public function index(SearchCoursesRequest $request): View
