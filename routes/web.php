@@ -48,6 +48,9 @@ Route::middleware('auth')->group(function () {
     Route::post('/courses/{course}/enroll', [EnrollmentController::class, 'store'])->name('courses.enroll');
     Route::delete('/courses/{course}/enroll', [EnrollmentController::class, 'destroy'])->name('courses.unenroll');
 
+Route::get('/couses.search', function () {
+    return view('search');
+});
     //Lesson Completion
         Route::post(
         '/courses/{course}/modules/{module}/lessons/{lesson}/complete',
