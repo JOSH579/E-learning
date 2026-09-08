@@ -59,6 +59,14 @@
             {{ $course->description ?: 'No description provided.' }}
         </p>
     </div>
+    @if (! is_null($progress ?? null))
+        <p class="mb-6 text-sm text-slate-700">
+            Progress:
+            <span class="font-medium">{{ $progress['completed'] }} / {{ $progress['total'] }}</span>
+            lessons
+            ({{ $progress['percent'] }}%)
+        </p>
+    @endif
 
     @if (auth()->user()->isStudent() && ! $isEnrolled)
         <p class="mb-6 border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900">

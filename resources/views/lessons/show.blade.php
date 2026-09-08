@@ -38,6 +38,28 @@
         </p>
     </div>
 
+        @if (auth()->user()->isStudent() && auth()->user()->isEnrolledIn($course))
+        <div class="mt-6">
+            @if ($isCompleted)
+                <p class="mb-3 text-sm font-medium text-emerald-700">Completed</p>
+                <form method="POST" action="{{ route('courses.modules.lessons.uncomplete', [$course, $module, $lesson]) }}">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50">
+                        Mark as incomplete
+                    </button>
+                </form>
+            @else
+                <form method="POST" action="{{ route('courses.modules.lessons.complete', [$course, $module, $lesson]) }}">
+                    @csrf
+                    <button type="submit" class="bg-slate-900 px-4 py-2 text-sm font-medium text-white hover:bg-slate-800">
+                        Mark as complete
+                    </button>
+                </form>
+            @endif
+        </div>
+    @endif
+    
     <p class="mt-6">
         <a href="{{ route('courses.modules.show', [$course, $module]) }}" class="text-sm text-slate-600 hover:text-slate-900">← Back to module</a>
     </p>
