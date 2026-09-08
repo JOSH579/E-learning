@@ -94,6 +94,9 @@
     </style>
 </head>
 <body>
+<a href="{{route('blaze')}}"
+  class="border border-slate-300 bg-white px-5 py-2.5 text-sm font-medium text-slate-700 hover:bg-slate-50">
+  HOM</a>
 
 <div class="search-container">
     <h2>Search Learning Resources</h2>
