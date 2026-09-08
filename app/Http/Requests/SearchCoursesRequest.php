@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 use App\Enums\UserRole;
+use Illuminate\Validation\Rule;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -21,7 +22,18 @@ class SearchCoursesRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'keyword' => 'required|string|max:255',
+            'keyword' => ['nullable', 'string', 'max:255'],
+            'category' => ['nullable', Rule::in('all',
+             'computer_science',
+            'it',
+            'cyber_security',
+            'language',
+            'arts',
+            'business',
+            'social_sciences',
+            'humanities',
+            'engineering', 'math', 'physics', 'chemistry', 'biology', 'geology', 'astronomy')],
+            'type' => ['nullable', Rule::in('all', 'course', 'notes', 'video')],
         ];
     }
 }

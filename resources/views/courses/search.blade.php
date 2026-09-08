@@ -204,6 +204,14 @@
 <body>
 
 <div class="main-wrapper">
+    <!-- Back to Courses Button -->
+    <div style="padding: 16px 30px 0; text-align: right;">
+        <a href="{{ route('courses.index') }}" style="color: #3498db; text-decoration: none; font-weight: 600;">
+            ← Back to Courses
+        </a>
+    </div>
+    <hr>
+
     <!-- Tab Navigation Buttons -->
     <div class="tab-buttons">
         <button class="tab-btn active" onclick="switchTab('search-tab', event)">🔍 Search Resources</button>
@@ -212,22 +220,34 @@
     <div id="search-tab" class="tab-content active">
         <h2>Search Learning Resources</h2>
 
-  <div class="form-group">
+    <!-- TAB 2: SEARCH FORM -->
+        <form action="{{ route('courses.search.results') }}" method="GET">
+            <div class="form-group">
+                <label for="keyword">Search Keyword:</label>
+                <input type="text" id="keyword" name="keyword" placeholder="e.g., Data Structures, SQL, Python..." >
+            </div>
+
+            <div class="form-group">
                 <label for="category">Select Subject:</label>
                 <select id="category" name="category">
                     <option value="all">All Subjects</option>
                     <option value="computer_science">Computer Science</option>
                     <option value="it">Information Technology (IT)</option>
                     <option value="cyber_security">Cybersecurity</option>
+                    <option value="language">Language</option>
+                    <option value="arts">Arts</option>
+                    <option value="business">Business</option>
+                    <option value="social_sciences">Social Sciences</option>
+                    <option value="humanities">Humanities</option>
+                    <option value="engineering">Engineering</option>
+                    <option value="math">Math</option>
+                    <option value="physics">Physics</option>
+                    <option value="chemistry">Chemistry</option>
+                    <option value="biology">Biology</option>
+                    <option value="geology">Geology</option>
+                    <option value="astronomy">Astronomy</option>
                 </select>
             </div>
-    <!-- TAB 2: SEARCH FORM -->
-        <form action="{{ route('courses.search.results') }}" method="GET">
-            <div class="form-group">
-                <label for="keyword">Search Keyword:</label>
-                <input type="text" id="keyword" name="keyword" placeholder="e.g., Data Structures, SQL, Python..." required>
-            </div>
-
 
             <div class="form-group">
                 <label>Resource Type:</label>
@@ -245,32 +265,45 @@
     <!-- TAB 2: STORE & CHECKOUT -->
     <div id="shop-tab" class="tab-content">
         <h2>Select Books & Study Tools</h2>
-        @if (session('success'))
-            <p style="color: green; text-align: center; margin-bottom: 16px;">{{ session('success') }}</p>
-        @endif
-        <form action="{{ route('shop.orders.store') }}" method="POST">
-            @csrf
+        <form action="checkout.php" method="POST">
 
-        <div class="products-grid">
-            @forelse ($products as $product)
+            <div class="products-grid">
+                <!-- Book Item 1 -->
                 <div class="product-card">
-                    <h4>{{ $product->name }}</h4>
-                    <p class="price">${{ number_format((float) $product->price, 2) }}</p>
+                    <h4>Python CS Handbook</h4>
+                    <p class="price"></p>
                     <label>
-                        <input
-                            type="checkbox"
-                            name="items[]"
-                            value="{{ $product->id }}"
-                            data-price="{{ $product->price }}"
-                            onchange="calculateTotal()"
-                        >
-                        Select
+                        <input type="checkbox" name="items[]" value="python_book" data-price="15.00" onchange="calculateTotal()"> Select
                     </label>
                 </div>
-            @empty
-                <p>No products available right now.</p>
-            @endforelse
-        </div>
+
+                <!-- Book Item 2 -->
+                <div class="product-card">
+                    <h4>Networking Essentials</h4>
+                    <p class="price"></p>
+                    <label>
+                        <input type="checkbox" name="items[]" value="networking_book" data-price="20.00" onchange="calculateTotal()"> Select
+                    </label>
+                </div>
+
+                <!-- Tool Item 1 -->
+                <div class="product-card">
+                    <h4> USB Drive (64GB)</h4>
+                    <p class="price"></p>
+                    <label>
+                        <input type="checkbox" name="items[]" value="usb_course" data-price="25.00" onchange="calculateTotal()"> Select
+                    </label>
+                </div>
+
+                <!-- Tool Item 2 -->
+                <div class="product-card">
+                    <h4>Computers</h4>
+                    <p class="price"></p>
+                    <label>
+                        <input type="checkbox" name="items[]" value="cyber_book" data-price="30.00" onchange="calculateTotal()"> Select
+                    </label>
+                </div>
+            </div>
 
             <!-- Cart Summary Section -->
             <div class="checkout-section">
