@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateLessonRequest;
 use App\Models\Course;
 use App\Models\Lesson;
 use App\Models\Module;
+use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
@@ -40,12 +41,14 @@ class LessonController extends Controller
             ->with('success', 'Lesson created successfully.');
     }
 
-    public function show(Course $course, Module $module, Lesson $lesson): View
+    public function show(Request $request, Course $course, Module $module, Lesson $lesson): View
     {
         $this->ensureNesting($course, $module, $lesson);
         $this->authorize('view', $lesson);
 
-        return view('lessons.show', compact('course', 'module', 'lesson'));
+        $isCompleted = $request->user()?->hasCompletedLesson($lesson);
+
+        return view('lessons.show', compact('course', 'module', 'lesson', 'isCompleted'));
     }
 
     public function edit(Course $course, Module $module, Lesson $lesson): View

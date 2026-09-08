@@ -81,7 +81,27 @@ class CourseController extends Controller
 
         $isEnrolled = $request->user()->isEnrolledIn($course);
 
-        return view('courses.show', compact('course', 'isEnrolled'));
+        $progress = null;
+
+        if ($request->user()->isStudent() && $isEnrolled) {
+            $lessonIds = $course->lessons()->pluck('lessons.id');
+
+            $totalLessons = $lessonIds->count();
+            $completedLessons = $request->user()
+            ->lessonCompletions()
+            ->whereIn('lesson_id', $lessonIds)
+            ->count();
+
+            $progress = [
+                'total' => $totalLessons,
+                'completed' => $completedLessons,
+                'percent' => $totalLessons > 0
+                    ? (int) round(($completedLessons / $totalLessons) * 100)
+                    : 0,
+            ];
+        }
+
+        return view('courses.show', compact('course', 'isEnrolled', 'progress'));
     }
 
     /**

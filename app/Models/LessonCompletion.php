@@ -2,13 +2,14 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Model;
 
 class LessonCompletion extends Model
 {
     protected $fillable = [
         'user_id',
-        'lesson-id',
+        'lesson_id',
         'completed_at',
     ];
 
