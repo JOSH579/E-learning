@@ -55,4 +55,33 @@
             </option>
         @endforeach
     </select>
+
+    <div>
+        <label for="category" class="mb-1 block text-sm font-medium">Category</label>
+        <select id="category" name="category" class="w-full border border-slate-300 bg-white px-3 py-2 text-sm">
+            <option value="">— None —</option>
+            @foreach ($categories as $category)
+                <option
+                    value="{{ $category->value }}"
+                    @selected(old('category', $course?->category?->value) === $category->value)
+                >
+                    {{ $category->label() }}
+                </option>
+            @endforeach
+        </select>
+    </div>
+
+    <div>
+        <label for="resource_type" class="mb-1 block text-sm font-medium">Resource type</label>
+        <select id="resource_type" name="resource_type" required class="w-full border border-slate-300 bg-white px-3 py-2 text-sm">
+            @foreach ($resourceTypes as $type)
+                <option
+                    value="{{ $type->value }}"
+                    @selected(old('resource_type', $course?->resource_type?->value ?? 'course') === $type->value)
+                >
+                    {{ $type->label() }}
+                </option>
+            @endforeach
+        </select>
+    </div>
 </div>
