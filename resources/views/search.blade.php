@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Search Study Resources</title>
+    <a href="{{route('blaze')}}"
+  class="border border-slate-300 bg-white px-5 py-2.5 text-sm font-medium text-slate-700 hover:bg-slate-50">
+  HOM</a>
     <style>
         * {
             box-sizing: border-box;
@@ -94,9 +97,7 @@
     </style>
 </head>
 <body>
-<a href="{{route('blaze')}}"
-  class="border border-slate-300 bg-white px-5 py-2.5 text-sm font-medium text-slate-700 hover:bg-slate-50">
-  HOM</a>
+
 
 <div class="search-container">
     <h2>Search Learning Resources</h2>

@@ -41,7 +41,7 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('/search', function () {
-    return view('courses.search');
+    return view('search');
 });
 
 Route::get('/register', function() {
