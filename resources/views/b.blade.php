@@ -3,11 +3,15 @@
 @section('title', 'Student Registration')
 
 @section('content')
+ <a href="{{ route('courses.show', $course) }}" class="text-slate-600 hover:text-slate-900 hover:underline">
+                                    View course
+                                </a>
     <div class="mx-auto max-w-md">
         <h1 class="text-2xl font-semibold tracking-tight">Student registration</h1>
         <p class="mt-2 text-sm text-slate-600">
             Create your account to browse courses and enroll as a student.
         </p>
+
 
         <form method="POST" action="{{ route('register') }}" class="mt-8 space-y-4">
             @csrf
