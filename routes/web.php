@@ -7,7 +7,9 @@ use App\Http\Controllers\CourseSearchController;
 use App\Http\Controllers\EnrollmentController;
 use App\Http\Controllers\LessonController;
 use App\Http\Controllers\ModuleController;
+use App\Http\Controllers\ShopController;
 use App\Http\Controllers\WelcomeController;
+use App\Http\Controllers\LessonCompletionController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -35,6 +37,7 @@ Route::middleware('auth')->group(function () {
     // is not treated as courses/{course} with course = "search".
     Route::get('/courses/search', [CourseSearchController::class, 'create'])->name('courses.search');
     Route::get('/courses/search/results', [CourseSearchController::class, 'index'])->name('courses.search.results');
+    Route::post('/shop/orders', [ShopController::class, 'store'])->name('shop.orders.store');
 
     Route::resource('courses', CourseController::class);
 
@@ -44,11 +47,20 @@ Route::middleware('auth')->group(function () {
     Route::get('/my-courses', [EnrollmentController::class, 'index'])->name('enrollments.index');
     Route::post('/courses/{course}/enroll', [EnrollmentController::class, 'store'])->name('courses.enroll');
     Route::delete('/courses/{course}/enroll', [EnrollmentController::class, 'destroy'])->name('courses.unenroll');
+
+    //Lesson Completion
+        Route::post(
+        '/courses/{course}/modules/{module}/lessons/{lesson}/complete',
+        [LessonCompletionController::class, 'store']
+    )->name('courses.modules.lessons.complete');
+
+    Route::delete(
+        '/courses/{course}/modules/{module}/lessons/{lesson}/complete',
+        [LessonCompletionController::class, 'destroy']
+    )->name('courses.modules.lessons.uncomplete');
 });
 
 Route::redirect('/search', '/courses/search');
 
 Route::get('/tranding', [WelcomeController::class, 'tranding'])->name('tranding');
-Route::redirect('/trading', '/tranding');
-
 Route::redirect('/trading', '/tranding');

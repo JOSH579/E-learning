@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>E learning</title>
+
     <style>
         /* Mitindo ya Jumla */
         *, *::before, *::after {
@@ -200,15 +201,26 @@
             margin-top: 60px;
             font-size: 0.95rem;
         }
+
     </style>
 </head>
+
 <body>
+
 
     <!-- Hero Section -->
     <div class="hero">
         <h1>E-LEARNING SCHOOL</h1>
         <p>Quality education recognized by our strategic and academic partners.</p>
+<button style="left">
+       <a href="{{ route('blaze') }}"
+                 class="border border-slate-300 bg-green px-5 py-2.5 text-sm font-medium text-slate-700 hover:bg-slate-50"
+            >
+                HOME
+            </a>
+</button>
     </div>
+
 
     <div class="container">
 
