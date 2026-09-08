@@ -52,5 +52,3 @@ Route::redirect('/search', '/courses/search');
 
 Route::get('/tranding', [WelcomeController::class, 'tranding'])->name('tranding');
 Route::redirect('/trading', '/tranding');
-
-Route::redirect('/trading', '/tranding');

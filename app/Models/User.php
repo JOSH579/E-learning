@@ -114,4 +114,14 @@ class User extends Authenticatable
     {
         return $this->hasMany(ShopOrder::class);
     }
+
+    public function lessonCompletions(): HasMany
+    {
+        return $this->hasMany(LessonCompletion::class);
+    }
+
+    public function hasCompletedLesson(Lesson $lesson): bool
+    {
+        return $this->lessonCompletions()->where('lesson_id', $lesson->id)->exists();
+    }
 }
