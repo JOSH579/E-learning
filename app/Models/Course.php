@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
+use App\Enums\CourseCategory;
+use App\Enums\ResourceType;
 
 class Course extends Model
 {
@@ -22,6 +24,8 @@ class Course extends Model
         'instructor_id',
         'price',
         'status',
+        'category',
+        'resource_type',
     ];
 
     /**
@@ -34,6 +38,8 @@ class Course extends Model
         return [
             'price' => 'decimal:2',
             'status' => CourseStatus::class,
+            'category' => CourseCategory::class,
+            'resource_type' => ResourceType::class,
         ];
     }
 

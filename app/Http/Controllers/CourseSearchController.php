@@ -27,21 +27,36 @@ class CourseSearchController extends Controller
     public function index(SearchCoursesRequest $request): View
     {
         $keyword = $request->validated('keyword');
+        $category = $request->validated('category', 'all') ?? 'all';
+        $type = $request->validated('type', 'all') ?? 'all';
         $user = $request->user();
 
         $courses = Course::query()
             ->with('instructor')
             ->where('status', CourseStatus::Published)
-            ->where(function ($query) use ($keyword) {
-                $query->where('title', 'like', "%{$keyword}%")
-                    ->orWhere('description', 'like', "%{$keyword}%");
-            })
+            ->when(
+                filled($keyword),
+                function ($query) use ($keyword) {
+                    $query->where(function ($q) use ($keyword) {
+                        $q->where('title', 'like', "%{$keyword}%")
+                            ->orWhere('description', 'like', "%{$keyword}%");
+                    });
+                }
+            )
+            ->when(
+                $category !== 'all',
+                fn ($query) => $query->where('category', $category)
+            )
+            ->when(
+                $type !== 'all',
+                fn ($query) => $query->where('resource_type', $type)
+            )
             ->latest()
             ->paginate(10)
             ->withQueryString();
 
         $enrolledCourseIds = $user->enrollments()->pluck('course_id');
 
-        return view('courses.search-results', compact('courses', 'keyword', 'enrolledCourseIds'));
+        return view('courses.search-results', compact('courses', 'keyword', 'category', 'type', 'enrolledCourseIds'));
     }
 }

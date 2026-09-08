@@ -5,6 +5,8 @@ namespace App\Http\Requests;
 use App\Enums\CourseStatus;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use App\Enums\CourseCategory;
+use App\Enums\ResourceType;
 
 class StoreCourseRequest extends FormRequest
 {
@@ -23,6 +25,8 @@ class StoreCourseRequest extends FormRequest
             'description' => ['nullable', 'string'],
             'price' => ['required', 'numeric', 'min:0'],
             'status' => ['required', Rule::enum(CourseStatus::class)],
+            'category' => ['nullable', Rule::enum(CourseCategory::class)],
+            'resource_type' => ['required', Rule::enum(ResourceType::class)],
         ];
     }
 }
