@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOneThrough;
@@ -53,5 +54,10 @@ class Lesson extends Model
             'module_id',
             'course_id',
         );
+    }
+
+    public function completions(): HasMany
+    {
+        return $this->hasMany(LessonCompletion::class);
     }
 }

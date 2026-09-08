@@ -12,8 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('lesson_completions', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+        $table->id();
+        $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+        $table->foreignId('lesson_id')->constrained()->cascadeOnDelete();
+        $table->timestamp('completed_at');
+        $table->timestamps();
+
+        $table->unique(['user_id', 'lesson_id']);
         });
     }
 
