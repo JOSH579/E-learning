@@ -24,6 +24,16 @@
     >{{ old('description', $course?->description) }}</textarea>
 </div>
 
+<!-- Image upload -->
+<div>
+    <label for="image" class="mb-1 block text-sm font-medium">Course image</label>
+    <input id="image" type="file" name="image" accept="image/*"
+           class="w-full border border-slate-300 bg-white px-3 py-2 text-sm">
+    @if ($course?->image_path)
+        <img src="{{ asset('storage/'.$course->image_path) }}" alt="" class="mt-2 h-24 w-auto object-cover">
+    @endif
+</div>
+
 <div>
     <label for="price" class="mb-1 block text-sm font-medium">Price</label>
     <input

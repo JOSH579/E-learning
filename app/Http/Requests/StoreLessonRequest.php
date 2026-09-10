@@ -19,6 +19,7 @@ class StoreLessonRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'is_demo' => ['sometimes', 'boolean'],
             'title' => ['required', 'string', 'max:255'],
             'content' => ['nullable', 'string'],
             'position' => ['nullable', 'integer', 'min:1'],
