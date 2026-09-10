@@ -84,4 +84,11 @@ class Course extends Model
             ->withPivot('enrolled_at')
             ->withTimestamps();
     }
+
+    public function imageUrl(): string
+    {
+        return $this->image_path
+        ? asset('storage/', $this->image_path)
+        : asset('images/picha.jpg');
+    }
 }

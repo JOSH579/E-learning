@@ -36,3 +36,16 @@
     >
     <p class="mt-1 text-xs text-slate-500">Lower numbers appear first in the course.</p>
 </div>
+
+<!-- Is demo -->
+<div>
+<label class="flex items-center gap-2 text-sm">
+    <input
+        type="checkbox"
+        name="is_demo"
+        value="1"
+        @checked(old('is_demo', $lesson?->is_demo))
+    >
+    Free demo lesson (visible to guests on preview)
+</label>
+</div>

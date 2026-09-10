@@ -29,4 +29,13 @@ class WelcomeController extends Controller
 
         return view('tranding', compact('courses'));
     }
+
+    public function coursePreview(Course $course): View
+    {
+        abort_unless($course->status === CourseStatus::Published, 404);
+
+        $course->load('modules.lessons');
+        $course->load(['instructor', 'modules.lessons']);
+        return view('courses.preview', compact('course'));
+    }
 }
