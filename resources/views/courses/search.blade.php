@@ -311,7 +311,7 @@
                     <span>Total Amount:</span>
                     <span id="total-price">$0.00</span>
                 </div>
-                <button type="submit" class="btn-submit btn-checkout">Proceed to Payment</button>
+                <button type="submit" class="btn-submit btn-checkout">Submit order request</button>
             </div>
 
         </form>
