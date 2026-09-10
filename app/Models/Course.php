@@ -19,6 +19,7 @@ class Course extends Model
      * @var list<string>
      */
     protected $fillable = [
+        'image_path',
         'title',
         'description',
         'instructor_id',
@@ -83,5 +84,15 @@ class Course extends Model
         return $this->belongsToMany(User::class, 'enrollments')
             ->withPivot('enrolled_at')
             ->withTimestamps();
+    }
+
+    /**
+     * Get the URL of the course image.
+     */
+    public function imageUrl(): string 
+    {
+        return $this->image_path
+        ? asset('storage/' . $this->image_path)
+        : asset('images/picha.jpg'); // default image
     }
 }

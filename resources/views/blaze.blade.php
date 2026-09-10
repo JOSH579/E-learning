@@ -35,7 +35,7 @@
                 href="{{ route('tranding') }}"
                 class="border border-slate-300 bg-white px-5 py-2.5 text-sm font-medium text-slate-700 hover:bg-slate-50"
             >
-                TRENDING COURSES
+                Trending courses
             </a>
         </div>
     </section>
@@ -51,22 +51,23 @@
 
             <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                 @foreach ($publishedCourses as $course)
-                    <article class="flex flex-col border border-slate-200 bg-white p-5 shadow-sm">
+                <a href="{{ route('courses.preview', $course) }}" class="flex flex-col border border-slate-200 bg-white shadow-sm hover:border-slate-400">
+                    <img
+                        src="{{ $course->imageUrl() }}"
+                        alt="{{ $course->title }}"
+                        class="h-40 w-full object-cover"
+                    >
+                    <div class="flex flex-1 flex-col p-5">
                         <h3 class="font-semibold text-slate-900">{{ $course->title }}</h3>
                         <p class="mt-2 flex-1 text-sm text-slate-600 line-clamp-3">
                             {{ $course->description ?: 'No description provided.' }}
                         </p>
-                        <div class="mt-4 flex items-center justify-between gap-3 text-sm">
-                            <span class="font-medium text-slate-900">{{ number_format((float) $course->price, 2) }}</span>
-                            @auth
-                                <a href="{{ route('courses.show', $course) }}" class="text-slate-600 hover:text-slate-900 hover:underline">
-                                    View course
-                                </a>
-                            @else
-                                <span class="text-slate-400">Log in to enroll</span>
-                            @endauth
+                        <div class="mt-4 flex items-center justify-between text-sm">
+                            <span class="font-medium">{{ number_format((float) $course->price, 2) }}</span>
+                            <span class="text-slate-600">Preview →</span>
                         </div>
-                    </article>
+                    </div>
+                </a>
                 @endforeach
             </div>
         </section>

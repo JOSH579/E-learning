@@ -212,12 +212,16 @@
     </div>
     <hr>
 
+    @php
+        $openShopTab = session('success') || $errors->has('items');
+    @endphp
+
     <!-- Tab Navigation Buttons -->
     <div class="tab-buttons">
-        <button class="tab-btn active" onclick="switchTab('search-tab', event)">🔍 Search Resources</button>
-        <button class="tab-btn" onclick="switchTab('shop-tab', event)">📚 Buy Books & Tools</button>
+        <button class="tab-btn {{ $openShopTab ? '' : 'active' }}" onclick="switchTab('search-tab', event)">🔍 Search Resources</button>
+        <button class="tab-btn {{ $openShopTab ? 'active' : '' }}" onclick="switchTab('shop-tab', event)">📚 Buy Books & Tools</button>
     </div>
-    <div id="search-tab" class="tab-content active">
+    <div id="search-tab" class="tab-content {{ $openShopTab ? '' : 'active' }}">
         <h2>Search Learning Resources</h2>
 
     <!-- TAB 2: SEARCH FORM -->
@@ -263,49 +267,40 @@
     </div>
 
     <!-- TAB 2: STORE & CHECKOUT -->
-    <div id="shop-tab" class="tab-content">
+    <div id="shop-tab" class="tab-content {{ $openShopTab ? 'active' : '' }}">
         <h2>Select Books & Study Tools</h2>
-        <form action="checkout.php" method="POST">
+
+        @if (session('success'))
+            <p style="margin-bottom: 1rem; color: #166534;">{{ session('success') }}</p>
+        @endif
+
+        @error('items')
+            <p style="margin-bottom: 1rem; color: #b91c1c;">{{ $message }}</p>
+        @enderror
+
+        <form action="{{ route('shop.orders.store') }}" method="POST">
+            @csrf
 
             <div class="products-grid">
-                <!-- Book Item 1 -->
-                <div class="product-card">
-                    <h4>Python CS Handbook</h4>
-                    <p class="price"></p>
-                    <label>
-                        <input type="checkbox" name="items[]" value="python_book" data-price="15.00" onchange="calculateTotal()"> Select
-                    </label>
-                </div>
-
-                <!-- Book Item 2 -->
-                <div class="product-card">
-                    <h4>Networking Essentials</h4>
-                    <p class="price"></p>
-                    <label>
-                        <input type="checkbox" name="items[]" value="networking_book" data-price="20.00" onchange="calculateTotal()"> Select
-                    </label>
-                </div>
-
-                <!-- Tool Item 1 -->
-                <div class="product-card">
-                    <h4> USB Drive (64GB)</h4>
-                    <p class="price"></p>
-                    <label>
-                        <input type="checkbox" name="items[]" value="usb_course" data-price="25.00" onchange="calculateTotal()"> Select
-                    </label>
-                </div>
-
-                <!-- Tool Item 2 -->
-                <div class="product-card">
-                    <h4>Computers</h4>
-                    <p class="price"></p>
-                    <label>
-                        <input type="checkbox" name="items[]" value="cyber_book" data-price="30.00" onchange="calculateTotal()"> Select
-                    </label>
-                </div>
+                @forelse ($products as $product)
+                    <div class="product-card">
+                        <h4>{{ $product->name }}</h4>
+                        <p class="price">${{ number_format((float) $product->price, 2) }}</p>
+                        <label>
+                            <input
+                                type="checkbox"
+                                name="items[]"
+                                value="{{ $product->id }}"
+                                data-price="{{ $product->price }}"
+                                onchange="calculateTotal()"
+                            > Select
+                        </label>
+                    </div>
+                @empty
+                    <p>No products available right now.</p>
+                @endforelse
             </div>
 
-            <!-- Cart Summary Section -->
             <div class="checkout-section">
                 <div class="checkout-summary">
                     <span>Total Amount:</span>
@@ -313,7 +308,6 @@
                 </div>
                 <button type="submit" class="btn-submit btn-checkout">Proceed to Payment</button>
             </div>
-
         </form>
     </div>
 </div>
@@ -339,6 +333,8 @@
 
         document.getElementById('total-price').innerText = '$' + total.toFixed(2);
     }
+
+    calculateTotal();
 </script>
 
 </body>
