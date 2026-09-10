@@ -64,8 +64,14 @@ class CourseController extends Controller
     {
         $this->authorize('create', Course::class);
 
+        $data = $request->safe()->except('image');
+
+        if ($request->hasFile('image')) {
+            $data['image_path'] = $request->file('image')->store('courses', 'public');
+        }
+
         $course = Course::create([
-            ...$request->validated(),
+            ...$data,
             'instructor_id' => $request->user()->id,
         ]);
 
@@ -129,7 +135,16 @@ class CourseController extends Controller
     public function update(UpdateCourseRequest $request, Course $course): RedirectResponse
     {
         $this->authorize('update', $course);
+    $data = $request->safe()->except('image');
 
+    if ($request->hasFile('image')) {
+        $data['image_path'] = $request->file('image')->store('courses', 'public');
+    }
+
+    $course->update([
+        ...$data,
+    ]);
+    
         $course->update($request->validated());
 
         return redirect()

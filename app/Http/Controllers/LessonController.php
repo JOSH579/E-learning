@@ -33,7 +33,7 @@ class LessonController extends Controller
         $data = $request->validated();
         $data['position'] = $data['position']
             ?? (($module->lessons()->max('position') ?? 0) + 1);
-
+        $data['is_demo'] = $request->boolean('is_demo');
         $lesson = $module->lessons()->create($data);
 
         return redirect()
@@ -67,8 +67,10 @@ class LessonController extends Controller
     ): RedirectResponse {
         $this->ensureNesting($course, $module, $lesson);
         $this->authorize('update', $lesson);
-
-        $lesson->update($request->validated());
+        
+        $data = $request->validated();
+        $data['is_demo'] = $request->boolean('is_demo');
+        $lesson->update($data);
 
         return redirect()
             ->route('courses.modules.lessons.show', [$course, $module, $lesson])
