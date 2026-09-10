@@ -226,7 +226,7 @@
     class="mx-auto mt-8 max-h-72 w-full max-w-3xl rounded-lg border border-slate-200 object-cover shadow-sm"
 
   >
-                <h3>brain develop </h3>
+                <h3>Develop your brain </h3>
                 <p>MATHEMATICS: The language of the universe—builds logical reasoning, statistics, and complex problem-solving skills.</p>
             </div>
 
@@ -236,8 +236,6 @@
 
             </div>
         </div>
-
-        
 @endif
 
 @endsection
