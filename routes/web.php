@@ -50,7 +50,11 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('courses.modules', ModuleController::class)->except(['index']);
     Route::resource('courses.modules.lessons', LessonController::class)->except(['index']);
+    Route::post('/courses/{course}/ratings', [CourseRatingController::class, 'store'])
+    ->name('courses.ratings.store');
 
+Route::delete('/courses/{course}/ratings', [CourseRatingController::class, 'destroy'])
+    ->name('courses.ratings.destroy');
     Route::get('/my-courses', [EnrollmentController::class, 'index'])->name('enrollments.index');
     Route::post('/courses/{course}/enroll', [EnrollmentController::class, 'store'])->name('courses.enroll');
     Route::delete('/courses/{course}/enroll', [EnrollmentController::class, 'destroy'])->name('courses.unenroll');
