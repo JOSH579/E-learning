@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Models\Course;
 
 class User extends Authenticatable
 {
@@ -123,5 +124,33 @@ class User extends Authenticatable
     public function hasCompletedLesson(Lesson $lesson): bool
     {
         return $this->lessonCompletions()->where('lesson_id', $lesson->id)->exists();
+    }
+
+    public function courseRatings(): HasMany
+    {
+        return $this->hasMany(CourseRating::class);
+    }
+
+    public function courseProgressPercent(Course $course): int
+    {
+        $lessonIds = $course->lessons()->pluck('lessons.id');
+        $total = $lessonIds->count();
+
+        if ($total === 0) {
+            return 0;
+        }
+
+        $completed = $this->lessonCompletions()
+            ->whereIn('lesson_id', $lessonIds)
+            ->count();
+
+        return (int) round(($completed / $total) * 100);
+    }
+
+    public function canRateCourse(Course $course): bool
+    {
+        return $this->isStudent()
+            && $this->isEnrolledIn($course)
+            && $this->courseProgressPercent($course) >= 70;
     }
 }
