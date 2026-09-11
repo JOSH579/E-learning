@@ -10,6 +10,7 @@ use App\Http\Controllers\ModuleController;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\LessonCompletionController;
+use App\Http\Controllers\CourseRatingController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
