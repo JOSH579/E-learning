@@ -73,13 +73,25 @@ class LessonController extends Controller
         $this->ensureNesting($course, $module, $lesson);
         $this->authorize('update', $lesson);
         
-        $data = $request->safe()->except('notes');
+        $data = $request->safe()->except(['notes', 'remove_notes']);
         $data['is_demo'] = $request->boolean('is_demo');
 
+        if ($request->boolean('remove_notes') && $lesson->notes_path) {
+            \Illuminate\Support\Facades\Storage::disk('public')->delete($lesson->notes_path);
+            $data['notes_path'] = null;
+        }
+
         if ($request->hasFile('notes')) {
+            if ($lesson->notes_path) {
+                \Illuminate\Support\Facades\Storage::disk('public')->delete($lesson->notes_path);
+            }
             $data['notes_path'] = $request->file('notes')->store('lessons', 'public');
         }
 
+        if ($request->filled('video_url') === false) {
+            $data['video_url'] = null;
+        }
+        
         $lesson->update($data);
 
         return redirect()
