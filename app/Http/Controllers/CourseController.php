@@ -109,7 +109,15 @@ class CourseController extends Controller
             ];
         }
 
-        return view('courses.show', compact('course', 'isEnrolled', 'progress'));
+        $averageRating = $course->averageRating();
+        $ratingsCount = $course->ratingsCount();
+        $userRating = $request->user()
+            ->courseRatings()
+            ->where('course_id', $course->id)
+            ->first();
+        $canRate = $request->user()->canRateCourse($course);
+
+        return view('courses.show', compact('course', 'isEnrolled', 'progress', 'averageRating', 'ratingsCount', 'userRating', 'canRate'));
     }
 
     /**
