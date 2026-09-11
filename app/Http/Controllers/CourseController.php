@@ -141,11 +141,7 @@ class CourseController extends Controller
         $data['image_path'] = $request->file('image')->store('courses', 'public');
     }
 
-    $course->update([
-        ...$data,
-    ]);
-    
-        $course->update($request->validated());
+    $course->update($data);
 
         return redirect()
             ->route('courses.show', $course)

@@ -89,7 +89,7 @@ class Course extends Model
     /**
      * Get the URL of the course image.
      */
-    public function imageUrl(): string 
+    public function imageUrl(): string
     {
         return $this->image_path
         ? asset('storage/' . $this->image_path)

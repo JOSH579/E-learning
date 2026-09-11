@@ -25,7 +25,7 @@ Route::get('/preview/courses/{course}', [WelcomeController::class, 'coursePrevie
 
 Route::get('/preview/courses/{course}/lessons/{lesson}', [WelcomeController::class, 'lessonPreview'])
     ->name('courses.lessons.preview');
-    
+
 Route::middleware('guest')->group(function () {
     Route::get('/login', [LoginController::class, 'create'])->name('login');
     Route::post('/login', [LoginController::class, 'store']);
