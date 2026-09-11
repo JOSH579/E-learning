@@ -49,3 +49,32 @@
     Free demo lesson (visible to guests on preview)
 </label>
 </div>
+
+<div>
+    <label for="notes" class="mb-1 block text-sm font-medium">PDF notes (optional)</label>
+    <input
+        id="notes"
+        type="file"
+        name="notes"
+        accept="application/pdf,.pdf"
+        class="w-full border border-slate-300 bg-white px-3 py-2 text-sm"
+    >
+    @if ($lesson?->notes_path)
+        <p class="mt-2 text-sm">
+            Current:
+            <a href="{{ $lesson->notesUrl() }}" target="_blank" class="underline">View PDF</a>
+        </p>
+    @endif
+</div>
+
+<div>
+    <label for="video_url" class="mb-1 block text-sm font-medium">Video URL (optional)</label>
+    <input
+        id="video_url"
+        type="url"
+        name="video_url"
+        value="{{ old('video_url', $lesson?->video_url) }}"
+        placeholder="https://www.youtube.com/watch?v=..."
+        class="w-full border border-slate-300 bg-white px-3 py-2 text-sm"
+    >
+</div>

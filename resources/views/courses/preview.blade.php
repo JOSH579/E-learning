@@ -28,9 +28,6 @@
                         @if ($course->category)
                             · {{ $course->category->label() }}
                         @endif
-                        @if ($course->resource_type)
-                            · {{ $course->resource_type->label() }}
-                        @endif
                     </p>
                 </div>
 

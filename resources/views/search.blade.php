@@ -120,16 +120,6 @@
             </select>
         </div>
 
-        <!-- Resource Type Filter -->
-        <div class="form-group">
-            <label>Resource Type:</label>
-            <div class="radio-group">
-                <label><input type="radio" name="type" value="all" checked> All</label>
-                <label><input type="radio" name="type" value="notes"> Notes (PDF/Docs)</label>
-                <label><input type="radio" name="type" value="video"> Videos</label>
-            </div>
-        </div>
-
         <!-- Submit Button -->
         <button type="submit">Search</button>
     </form>

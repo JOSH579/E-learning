@@ -253,15 +253,6 @@
                 </select>
             </div>
 
-            <div class="form-group">
-                <label>Resource Type:</label>
-                <div class="radio-group">
-                    <label><input type="radio" name="type" value="all" checked> All</label>
-                    <label><input type="radio" name="type" value="notes"> Notes (PDF/Docs)</label>
-                    <label><input type="radio" name="type" value="video"> Videos</label>
-                </div>
-            </div>
-
             <button type="submit" class="btn-submit">Search</button>
         </form>
     </div>

@@ -38,6 +38,28 @@
         </p>
     </div>
 
+    @if ($lesson->notes_path || $lesson->video_url)
+    <div class="mt-6 border border-slate-200 bg-white px-4 py-5">
+        <h2 class="mb-3 text-sm font-medium text-slate-500">Materials</h2>
+        <ul class="space-y-2 text-sm">
+            @if ($lesson->notes_path)
+                <li>
+                    <a href="{{ $lesson->notesUrl() }}" target="_blank" class="font-medium underline">
+                        Download / open PDF notes
+                    </a>
+                </li>
+            @endif
+            @if ($lesson->video_url)
+                <li>
+                    <a href="{{ $lesson->video_url }}" target="_blank" rel="noopener noreferrer" class="font-medium underline">
+                        Watch video
+                    </a>
+                </li>
+            @endif
+        </ul>
+    </div>
+@endif
+
         @if (auth()->user()->isStudent() && auth()->user()->isEnrolledIn($course))
         <div class="mt-6">
             @if ($isCompleted)
@@ -59,7 +81,7 @@
             @endif
         </div>
     @endif
-    
+
     <p class="mt-6">
         <a href="{{ route('courses.modules.show', [$course, $module]) }}" class="text-sm text-slate-600 hover:text-slate-900">← Back to module</a>
     </p>
