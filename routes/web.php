@@ -11,7 +11,7 @@ use App\Http\Controllers\ShopController;
 use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\LessonCompletionController;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\CourseRatingController;
 Route::get('/', function () {
     return auth()->check()
         ? redirect()->route('courses.index')
