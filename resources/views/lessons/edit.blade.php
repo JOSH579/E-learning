@@ -12,7 +12,7 @@
 
     <h1 class="mb-6 text-2xl font-semibold tracking-tight">Edit lesson</h1>
 
-    <form method="POST" action="{{ route('courses.modules.lessons.update', [$course, $module, $lesson]) }}" class="max-w-xl space-y-4">
+    <form method="POST" action="{{ route('courses.modules.lessons.update', [$course, $module, $lesson]) }}" enctype="multipart/form-data" class="max-w-xl space-y-4">
         @csrf
         @method('PUT')
         @include('lessons._form')
