@@ -35,7 +35,7 @@
                 href="{{ route('tranding') }}"
                 class="border border-slate-300 bg-white px-5 py-2.5 text-sm font-medium text-slate-700 hover:bg-slate-50"
             >
-                Trending courses
+                TRENDING COURSES
             </a>
         </div>
     </section>
@@ -51,23 +51,26 @@
 
             <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                 @foreach ($publishedCourses as $course)
-                <a href="{{ route('courses.preview', $course) }}" class="flex flex-col border border-slate-200 bg-white shadow-sm hover:border-slate-400">
-                    <img
-                        src="{{ $course->imageUrl() }}"
-                        alt="{{ $course->title }}"
-                        class="h-40 w-full object-cover"
+                    <a
+                        href="{{ route('courses.preview', $course) }}"
+                        class="flex flex-col border border-slate-200 bg-white shadow-sm hover:border-slate-400"
                     >
-                    <div class="flex flex-1 flex-col p-5">
-                        <h3 class="font-semibold text-slate-900">{{ $course->title }}</h3>
-                        <p class="mt-2 flex-1 text-sm text-slate-600 line-clamp-3">
-                            {{ $course->description ?: 'No description provided.' }}
-                        </p>
-                        <div class="mt-4 flex items-center justify-between text-sm">
-                            <span class="font-medium">{{ number_format((float) $course->price, 2) }}</span>
-                            <span class="text-slate-600">Preview →</span>
+                        <img
+                            src="{{ $course->imageUrl() }}"
+                            alt="{{ $course->title }}"
+                            class="h-40 w-full object-cover"
+                        >
+                        <div class="flex flex-1 flex-col p-5">
+                            <h3 class="font-semibold text-slate-900">{{ $course->title }}</h3>
+                            <p class="mt-2 flex-1 text-sm text-slate-600 line-clamp-3">
+                                {{ $course->description ?: 'No description provided.' }}
+                            </p>
+                            <div class="mt-4 flex items-center justify-between text-sm">
+                                <span class="font-medium">{{ number_format((float) $course->price, 2) }}</span>
+                                <span class="text-slate-600">Preview →</span>
+                            </div>
                         </div>
-                    </div>
-                </a>
+                    </a>
                 @endforeach
             </div>
         </section>

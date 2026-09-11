@@ -212,13 +212,21 @@
     <div class="hero">
         <h1>E-LEARNING SCHOOL</h1>
         <p>Quality education recognized by our strategic and academic partners.</p>
-<button style="left">
-       <a href="{{ route('blaze') }}"
-                 class="border border-slate-300 bg-green px-5 py-2.5 text-sm font-medium text-slate-700 hover:bg-slate-50"
-            >
-                HOME
+      
+        <!-- button to go back to the home page -->
+        <p style="margin-top: 24px;">
+            <a href="{{ route('blaze') }}" style="text-decoration: none;">
+                <span style="
+                    display: inline-block;
+                    background-color: #faf0ca;
+                    color: #0d3b66;
+                    padding: 10px 22px;
+                    font-size: 15px;
+                    font-weight: bold;
+                    border-radius: 5px;
+                ">HOME</span>
             </a>
-</button>
+        </p>
     </div>
 
 
