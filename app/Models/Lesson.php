@@ -19,6 +19,7 @@ class Lesson extends Model
         'title',
         'content',
         'position',
+        'is_demo',
     ];
 
     /**
@@ -29,6 +30,7 @@ class Lesson extends Model
     protected function casts(): array
     {
         return [
+            'is_demo' => 'boolean',
             'position' => 'integer',
         ];
     }

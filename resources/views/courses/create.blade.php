@@ -5,7 +5,7 @@
 @section('content')
     <h1 class="mb-6 text-2xl font-semibold tracking-tight">Create course</h1>
 
-    <form method="POST" action="{{ route('courses.store') }}" class="max-w-xl space-y-4">
+    <form method="POST" action="{{ route('courses.store') }}" enctype="multipart/form-data" class="max-w-xl space-y-4">
         @csrf
         @include('courses._form')
 
