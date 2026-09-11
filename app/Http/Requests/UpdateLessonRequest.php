@@ -23,6 +23,8 @@ class UpdateLessonRequest extends FormRequest
             'title' => ['required', 'string', 'max:255'],
             'content' => ['nullable', 'string'],
             'position' => ['required', 'integer', 'min:1'],
+            'notes' => ['nullable', 'file', 'mimes:pdf', 'max:10240'], // 10MB max
+            'video_url' => ['nullable', 'url', 'max:2048'], // 2MB max
         ];
     }
 }
