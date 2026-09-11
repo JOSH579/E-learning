@@ -60,11 +60,15 @@
         class="w-full border border-slate-300 bg-white px-3 py-2 text-sm"
     >
     @if ($lesson?->notes_path)
-        <p class="mt-2 text-sm">
-            Current:
-            <a href="{{ $lesson->notesUrl() }}" target="_blank" class="underline">View PDF</a>
-        </p>
-    @endif
+    <p class="mt-2 text-sm">
+        Current:
+        <a href="{{ $lesson->notesUrl() }}" target="_blank" class="underline">View PDF</a>
+    </p>
+    <label class="mt-2 flex items-center gap-2 text-sm">
+        <input type="checkbox" name="remove_notes" value="1">
+        Remove current PDF
+    </label>
+@endif
 </div>
 
 <div>
