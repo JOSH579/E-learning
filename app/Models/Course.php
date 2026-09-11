@@ -92,4 +92,21 @@ class Course extends Model
         ? asset('storage/' . $this->image_path)
         : asset('images/picha.jpg'); // default image
     }
+
+    public function ratings(): HasMany
+    {
+        return $this->hasMany(CourseRating::class);
+    }
+
+    public function averageRating(): ?float
+    {
+        $avg = $this->ratings()->avg('score');
+    
+        return $avg !== null ? round((float) $avg, 1) : null;
+    }
+
+    public function ratingsCount(): int
+    {
+        return $this->ratings()->count();
+    }
 }
