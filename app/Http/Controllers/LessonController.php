@@ -30,10 +30,15 @@ class LessonController extends Controller
         $this->ensureModuleBelongsToCourse($course, $module);
         $this->authorize('create', [Lesson::class, $module]);
 
-        $data = $request->validated();
+        $data = $request->safe()->except('notes');
         $data['position'] = $data['position']
             ?? (($module->lessons()->max('position') ?? 0) + 1);
         $data['is_demo'] = $request->boolean('is_demo');
+
+        if ($request->hasFile('notes')) {
+            $data['notes_path'] = $request->file('notes')->store('lessons', 'public');
+        }
+
         $lesson = $module->lessons()->create($data);
 
         return redirect()
@@ -68,8 +73,13 @@ class LessonController extends Controller
         $this->ensureNesting($course, $module, $lesson);
         $this->authorize('update', $lesson);
         
-        $data = $request->validated();
+        $data = $request->safe()->except('notes');
         $data['is_demo'] = $request->boolean('is_demo');
+
+        if ($request->hasFile('notes')) {
+            $data['notes_path'] = $request->file('notes')->store('lessons', 'public');
+        }
+
         $lesson->update($data);
 
         return redirect()

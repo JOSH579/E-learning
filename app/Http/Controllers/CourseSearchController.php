@@ -28,7 +28,6 @@ class CourseSearchController extends Controller
     {
         $keyword = $request->validated('keyword');
         $category = $request->validated('category', 'all') ?? 'all';
-        $type = $request->validated('type', 'all') ?? 'all';
         $user = $request->user();
 
         $courses = Course::query()
@@ -47,16 +46,12 @@ class CourseSearchController extends Controller
                 $category !== 'all',
                 fn ($query) => $query->where('category', $category)
             )
-            ->when(
-                $type !== 'all',
-                fn ($query) => $query->where('resource_type', $type)
-            )
             ->latest()
             ->paginate(10)
             ->withQueryString();
 
         $enrolledCourseIds = $user->enrollments()->pluck('course_id');
 
-        return view('courses.search-results', compact('courses', 'keyword', 'category', 'type', 'enrolledCourseIds'));
+        return view('courses.search-results', compact('courses', 'keyword', 'category', 'enrolledCourseIds'));
     }
 }

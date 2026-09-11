@@ -10,7 +10,6 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use App\Enums\CourseCategory;
-use App\Enums\ResourceType;
 
 class CourseController extends Controller
 {
@@ -53,7 +52,6 @@ class CourseController extends Controller
         return view('courses.create', [
             'statuses' => CourseStatus::cases(),
             'categories' => CourseCategory::cases(),
-            'resourceTypes' => ResourceType::cases(),
         ]);
     }
 
@@ -125,7 +123,6 @@ class CourseController extends Controller
             'course' => $course,
             'statuses' => CourseStatus::cases(),
             'categories' => CourseCategory::cases(),
-            'resourceTypes' => ResourceType::cases(),
         ]);
     }
 

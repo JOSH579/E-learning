@@ -33,7 +33,6 @@ class SearchCoursesRequest extends FormRequest
             'social_sciences',
             'humanities',
             'engineering', 'math', 'physics', 'chemistry', 'biology', 'geology', 'astronomy')],
-            'type' => ['nullable', Rule::in('all', 'course', 'notes', 'video')],
         ];
     }
 }

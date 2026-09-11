@@ -15,6 +15,8 @@ class Lesson extends Model
      * @var list<string>
      */
     protected $fillable = [
+        'notes_path',
+        'video_url',
         'module_id',
         'title',
         'content',
@@ -61,5 +63,12 @@ class Lesson extends Model
     public function completions(): HasMany
     {
         return $this->hasMany(LessonCompletion::class);
+    }
+
+    public function notesUrl(): ?string
+    {
+        return $this->notes_path 
+        ? asset('storage/'. $this->notes_path) 
+        : null;
     }
 }
