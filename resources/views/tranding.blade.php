@@ -252,6 +252,11 @@
             <div class="sponsors-grid">
             @forelse ($courses as $course)
         <div class="sponsor-card">
+        @if ($course->ratings_count > 0)
+            <p>★ {{ number_format((float) $course->ratings_avg_score, 1) }} ({{ $course->ratings_count }}) · {{ $course->enrollments_count }} enrolled</p>
+        @else
+            <p>{{ $course->enrollments_count }} enrolled · No ratings yet</p>
+        @endif
             <div class="sponsor-logo-placeholder">
                 {{ strtoupper(\Illuminate\Support\Str::substr($course->title, 0, 2)) }}
             </div>

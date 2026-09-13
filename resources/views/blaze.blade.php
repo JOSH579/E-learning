@@ -66,6 +66,14 @@
                                 {{ $course->description ?: 'No description provided.' }}
                             </p>
                             <div class="mt-4 flex items-center justify-between text-sm">
+                                @if ($course->ratings_count > 0)
+                                    <p class="mt-2 text-sm text-slate-600">
+                                        ★ {{ number_format((float) $course->ratings_avg_score, 1) }}
+                                        ({{ $course->ratings_count }})
+                                    </p>
+                                @else
+                                    <p class="mt-2 text-sm text-slate-400">No ratings yet</p>
+                                @endif
                                 <span class="font-medium">{{ number_format((float) $course->price, 2) }}</span>
                                 <span class="text-slate-600">Preview →</span>
                             </div>

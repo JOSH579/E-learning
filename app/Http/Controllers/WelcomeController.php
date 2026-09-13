@@ -13,6 +13,8 @@ class WelcomeController extends Controller
     {
         $publishedCourses = Course::query()
             ->where('status', CourseStatus::Published)
+            ->withAvg('ratings', 'score')
+            ->withCount('ratings')
             ->latest()
             ->get();
 
@@ -23,8 +25,12 @@ class WelcomeController extends Controller
     {
         $courses = Course::query()
             ->with('instructor')
+            ->withAvg('ratings', 'score')
+            ->withCount(['ratings', 'enrollments'])
             ->where('status', CourseStatus::Published)
-            ->latest()
+            ->orderbyDesc(\Illuminate\Support\Facades\DB::raw('COALESCE(ratings_avg_score, 0)'))
+            ->orderbyDesc('ratings_count')
+            ->orderbyDesc('enrollments_count')
             ->take(6)
             ->get();
 
