@@ -251,32 +251,32 @@
 
             <div class="sponsors-grid">
             @forelse ($courses as $course)
-        <div class="sponsor-card">
-        @if ($course->ratings_count > 0)
-            <p>★ {{ number_format((float) $course->ratings_avg_score, 1) }} ({{ $course->ratings_count }}) · {{ $course->enrollments_count }} enrolled</p>
-        @else
-            <p>{{ $course->enrollments_count }} enrolled · No ratings yet</p>
-        @endif
-            <div class="sponsor-logo-placeholder">
-                {{ strtoupper(\Illuminate\Support\Str::substr($course->title, 0, 2)) }}
-            </div>
-            <h3>{{ $course->title }}</h3>
-            <p>{{ \Illuminate\Support\Str::limit($course->description ?: 'No description provided.', 180) }}</p>
-            <p style="margin-top: 12px; text-align: center;">
-                @auth
-                    <a href="{{ route('courses.show', $course) }}" style="color: #0d3b66; font-weight: bold; text-decoration: none;">
-                        View course
-                    </a>
-                @else
-                    <a href="{{ route('login') }}" style="color: #0d3b66; font-weight: bold; text-decoration: none;">
-                        Log in to enroll
-                    </a>
-                @endauth
-            </p>
-        </div>
-        @empty
-        <p class="sub-title">No published courses yet. Check back soon.</p>
-        @endforelse
+                <a href="{{ route('courses.preview', $course) }}" class="sponsor-card" style="text-decoration: none; color: inherit; display: inline-block;">
+                    <img
+                        src="{{ $course->imageUrl() }}"
+                        alt="{{ $course->title }}"
+                        style="width: 100%; height: 140px; object-fit: cover; border-radius: 6px; margin-bottom: 12px;"
+                    >
+                    <h3>{{ $course->title }}</h3>
+                    <p>{{ \Illuminate\Support\Str::limit($course->description ?: 'No description provided.', 180) }}</p>
+                    @if ($course->ratings_count > 0)
+                        <p style="margin-top: 12px; text-align: center; font-weight: bold; color: #0d3b66;">
+                            ★ {{ number_format((float) $course->ratings_avg_score, 1) }}
+                            ({{ $course->ratings_count }})
+                            · {{ $course->enrollments_count }} enrolled
+                        </p>
+                    @else
+                        <p style="margin-top: 12px; text-align: center; color: #666;">
+                            {{ $course->enrollments_count }} enrolled · No ratings yet
+                        </p>
+                    @endif
+                    <p style="margin-top: 8px; text-align: center; font-weight: bold; color: #0d3b66;">
+                        Preview →
+                    </p>
+                </a>
+            @empty
+                <p class="sub-title">No published courses yet. Check back soon.</p>
+            @endforelse
         </div>
 
     </div>
