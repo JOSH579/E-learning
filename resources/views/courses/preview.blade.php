@@ -28,6 +28,12 @@
                         @if ($course->category)
                             · {{ $course->category->label() }}
                         @endif
+                        @if ($course->ratings_count > 0)
+                            · ★ {{ number_format((float) $course->ratings_avg_score, 1) }}
+                            ({{ $course->ratings_count }})
+                        @else
+                            · No ratings yet
+                        @endif
                     </p>
                 </div>
 
@@ -111,6 +117,35 @@
             @endforeach
         </div>
     @endif
+
+    <section class="mt-10 mb-8">
+        <h2 class="mb-4 text-lg font-semibold tracking-tight">Student reviews</h2>
+
+        @php
+            $reviews = $course->ratings->filter(fn ($rating) => filled($rating->comment));
+        @endphp
+
+        @if ($reviews->isEmpty())
+            <p class="text-sm text-slate-500">No written reviews yet.</p>
+        @else
+            <div class="space-y-4">
+                @foreach ($reviews as $rating)
+                    <div class="border border-slate-200 bg-white px-4 py-4">
+                        <p class="text-sm font-medium text-slate-900">
+                            {{ $rating->user?->name ?? 'Student' }}
+                            · ★ {{ $rating->score }}
+                        </p>
+                        <p class="mt-2 whitespace-pre-wrap text-sm text-slate-700">
+                            {{ $rating->comment }}
+                        </p>
+                        <p class="mt-2 text-xs text-slate-400">
+                            {{ $rating->created_at?->format('M j, Y') }}
+                        </p>
+                    </div>
+                @endforeach
+            </div>
+        @endif
+    </section>
 
     <p class="mt-8">
         <a href="{{ route('blaze') }}" class="text-sm text-slate-600 hover:text-slate-900">← Back to home</a>

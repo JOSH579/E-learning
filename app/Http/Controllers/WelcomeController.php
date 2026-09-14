@@ -40,9 +40,15 @@ class WelcomeController extends Controller
     public function coursePreview(Course $course): View
     {
         abort_unless($course->status === CourseStatus::Published, 404);
-
-        $course->load('modules.lessons');
-        $course->load(['instructor', 'modules.lessons']);
+    
+        $course->load([
+            'instructor',
+            'modules.lessons',
+            'ratings' => fn ($query) => $query->with('user')->latest(),
+        ]);
+        $course->loadAvg('ratings', 'score');
+        $course->loadCount('ratings');
+    
         return view('courses.preview', compact('course'));
     }
 
