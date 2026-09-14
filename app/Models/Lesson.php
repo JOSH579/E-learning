@@ -16,7 +16,7 @@ class Lesson extends Model
      */
     protected $fillable = [
         'notes_path',
-        'video_url',
+        'video_path',
         'module_id',
         'title',
         'content',
@@ -69,6 +69,13 @@ class Lesson extends Model
     {
         return $this->notes_path 
         ? asset('storage/'. $this->notes_path) 
+        : null;
+    }
+
+    public function videoUrl(): ?string
+    {
+        return $this->video_path 
+        ? asset('storage/'. $this->video_path) 
         : null;
     }
 }

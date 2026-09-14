@@ -38,27 +38,32 @@
         </p>
     </div>
 
-    @if ($lesson->notes_path || $lesson->video_url)
-    <div class="mt-6 border border-slate-200 bg-white px-4 py-5">
-        <h2 class="mb-3 text-sm font-medium text-slate-500">Materials</h2>
-        <ul class="space-y-2 text-sm">
+    @if ($lesson->notes_path || $lesson->video_path)
+        <div class="mt-6 border border-slate-200 bg-white px-4 py-5">
+            <h2 class="mb-3 text-sm font-medium text-slate-500">Materials</h2>
+
             @if ($lesson->notes_path)
-                <li>
+                <p class="mb-3 text-sm">
                     <a href="{{ $lesson->notesUrl() }}" target="_blank" class="font-medium underline">
                         Download / open PDF notes
                     </a>
-                </li>
+                </p>
             @endif
-            @if ($lesson->video_url)
-                <li>
-                    <a href="{{ $lesson->video_url }}" target="_blank" rel="noopener noreferrer" class="font-medium underline">
-                        Watch video
-                    </a>
-                </li>
+
+            @if ($lesson->video_path)
+                <div class="mt-2">
+                    <p class="mb-2 text-sm font-medium text-slate-700">Lesson video</p>
+                    <video
+                        controls
+                        class="w-full max-w-3xl border border-slate-200 bg-black"
+                        src="{{ $lesson->videoUrl() }}"
+                    >
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
             @endif
-        </ul>
-    </div>
-@endif
+        </div>
+    @endif
 
         @if (auth()->user()->isStudent() && auth()->user()->isEnrolledIn($course))
         <div class="mt-6">

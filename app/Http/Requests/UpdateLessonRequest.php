@@ -25,7 +25,8 @@ class UpdateLessonRequest extends FormRequest
             'content' => ['nullable', 'string'],
             'position' => ['required', 'integer', 'min:1'],
             'notes' => ['nullable', 'file', 'mimes:pdf', 'max:10240'], // 10MB max
-            'video_url' => ['nullable', 'url', 'max:2048'], // 2MB max
+            'video' => ['nullable', 'file', 'mimetypes:video/mp4,video/webm,video/quicktime', 'max:102400'], // 100MB max
+            'remove_video' => ['sometimes', 'boolean'],
         ];
     }
 }

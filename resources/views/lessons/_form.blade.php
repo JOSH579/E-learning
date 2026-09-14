@@ -72,13 +72,23 @@
 </div>
 
 <div>
-    <label for="video_url" class="mb-1 block text-sm font-medium">Video URL (optional)</label>
+    <label for="video" class="mb-1 block text-sm font-medium">Lesson video (optional)</label>
     <input
-        id="video_url"
-        type="url"
-        name="video_url"
-        value="{{ old('video_url', $lesson?->video_url) }}"
-        placeholder="https://www.youtube.com/watch?v=..."
+        id="video"
+        type="file"
+        name="video"
+        accept="video/mp4,video/webm,video/quicktime,.mp4,.webm,.mov"
         class="w-full border border-slate-300 bg-white px-3 py-2 text-sm"
     >
+    <p class="mt-1 text-xs text-slate-500">MP4 / WebM / MOV, max about 100MB.</p>
+    @if ($lesson?->video_path)
+        <p class="mt-2 text-sm">
+            Current:
+            <a href="{{ $lesson->videoUrl() }}" target="_blank" class="underline">Open video</a>
+        </p>
+        <label class="mt-2 flex items-center gap-2 text-sm">
+            <input type="checkbox" name="remove_video" value="1">
+            Remove current video
+        </label>
+    @endif
 </div>
