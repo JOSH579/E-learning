@@ -221,20 +221,33 @@
         <button class="tab-btn {{ $openShopTab ? '' : 'active' }}" onclick="switchTab('search-tab', event)">🔍 Search Resources</button>
         <button class="tab-btn {{ $openShopTab ? 'active' : '' }}" onclick="switchTab('shop-tab', event)">📚 Buy Books & Tools</button>
     </div>
+
     <div id="search-tab" class="tab-content {{ $openShopTab ? '' : 'active' }}">
         <h2>Search Learning Resources</h2>
+        <p style="text-align: center; color: #64748b; margin-bottom: 24px; font-size: 14px;">
+            Use keyword or category — you only need one.
+        </p>
 
-    <!-- TAB 2: SEARCH FORM -->
+        <form action="{{ route('courses.search.results') }}" method="GET" style="margin-bottom: 28px;">
+            <div class="form-group">
+                <label for="keyword">Keyword</label>
+                <input
+                    type="text"
+                    id="keyword"
+                    name="keyword"
+                    placeholder="e.g., Data Structures, SQL, Python..."
+                >
+            </div>
+            <button type="submit" class="btn-submit">Search by keyword</button>
+        </form>
+
+        <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 8px 0 28px;">
+
         <form action="{{ route('courses.search.results') }}" method="GET">
             <div class="form-group">
-                <label for="keyword">Search Keyword:</label>
-                <input type="text" id="keyword" name="keyword" placeholder="e.g., Data Structures, SQL, Python..." >
-            </div>
-
-            <div class="form-group">
-                <label for="category">Select Subject:</label>
+                <label for="category">Category</label>
                 <select id="category" name="category">
-                    <option value="all">All Subjects</option>
+                    <option value="all">All categories</option>
                     <option value="computer_science">Computer Science</option>
                     <option value="it">Information Technology (IT)</option>
                     <option value="cyber_security">Cybersecurity</option>
@@ -252,8 +265,7 @@
                     <option value="astronomy">Astronomy</option>
                 </select>
             </div>
-
-            <button type="submit" class="btn-submit">Search</button>
+            <button type="submit" class="btn-submit">Search by category</button>
         </form>
     </div>
 

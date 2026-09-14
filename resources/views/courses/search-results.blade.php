@@ -6,12 +6,21 @@
     <div class="mb-6">
         <h1 class="text-2xl font-semibold tracking-tight">Search results</h1>
         <p class="mt-2 text-sm text-slate-600">
-            Showing courses matching <span class="font-medium text-slate-900">"{{ $keyword }}"</span>
+            @if (filled($keyword) && $category !== 'all')
+                Matching <span class="font-medium text-slate-900">"{{ $keyword }}"</span>
+                in <span class="font-medium text-slate-900">{{ str_replace('_', ' ', $category) }}</span>
+            @elseif (filled($keyword))
+                Matching keyword <span class="font-medium text-slate-900">"{{ $keyword }}"</span>
+            @elseif ($category !== 'all')
+                Matching category <span class="font-medium text-slate-900">{{ str_replace('_', ' ', $category) }}</span>
+            @else
+                Showing all published courses
+            @endif
         </p>
     </div>
 
     @if ($courses->isEmpty())
-        <p class="text-slate-600">No courses found for that keyword.</p>
+        <p class="text-slate-600">No courses found for that search.</p>
     @else
         <div class="overflow-x-auto border border-slate-200 bg-white">
             <table class="min-w-full text-left text-sm">

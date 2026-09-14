@@ -246,8 +246,8 @@
 
         <!-- Sehemu Kuu ya popular cource -->
         <div class="sponsors-section">
-            <h2>Tranding courses</h2>
-            <div class="sub-title">:We are here to offer you prestigious courses.</div>
+            <h2>Trending courses</h2>
+            <div class="sub-title">Top courses by ratings and enrollments.</div>
 
             <div class="sponsors-grid">
             @forelse ($courses as $course)
