@@ -20,7 +20,7 @@ class StoreLessonRequest extends FormRequest
     {
         return [
             'notes' => ['nullable', 'file', 'mimes:pdf', 'max:10240'], // 10MB max
-            'video_url' => ['nullable', 'url', 'max:2048'], // 2MB max
+            'video' => ['nullable', 'file', 'mimetypes:video/mp4,video/webm,video/quicktime', 'max:102400'], // 100MB max
             'is_demo' => ['sometimes', 'boolean'],
             'title' => ['required', 'string', 'max:255'],
             'content' => ['nullable', 'string'],

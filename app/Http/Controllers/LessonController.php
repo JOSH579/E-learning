@@ -30,13 +30,17 @@ class LessonController extends Controller
         $this->ensureModuleBelongsToCourse($course, $module);
         $this->authorize('create', [Lesson::class, $module]);
 
-        $data = $request->safe()->except('notes');
+        $data = $request->safe()->except(['notes', 'video']);
         $data['position'] = $data['position']
             ?? (($module->lessons()->max('position') ?? 0) + 1);
         $data['is_demo'] = $request->boolean('is_demo');
 
         if ($request->hasFile('notes')) {
             $data['notes_path'] = $request->file('notes')->store('lessons', 'public');
+        }
+
+        if ($request->hasFile('video')) {
+            $data['video_path'] = $request->file('video')->store('lessons/videos', 'public');
         }
 
         $lesson = $module->lessons()->create($data);
@@ -73,7 +77,7 @@ class LessonController extends Controller
         $this->ensureNesting($course, $module, $lesson);
         $this->authorize('update', $lesson);
         
-        $data = $request->safe()->except(['notes', 'remove_notes']);
+        $data = $request->safe()->except(['notes', 'remove_notes', 'video', 'remove_video']);
         $data['is_demo'] = $request->boolean('is_demo');
 
         if ($request->boolean('remove_notes') && $lesson->notes_path) {
@@ -88,8 +92,16 @@ class LessonController extends Controller
             $data['notes_path'] = $request->file('notes')->store('lessons', 'public');
         }
 
-        if ($request->filled('video_url') === false) {
-            $data['video_url'] = null;
+        if ($request->boolean('remove_video') && $lesson->video_path) {
+            \Illuminate\Support\Facades\Storage::disk('public')->delete($lesson->video_path);
+            $data['video_path'] = null;
+        }
+
+        if ($request->hasFile('video')) {
+            if ($lesson->video_path) {
+                \Illuminate\Support\Facades\Storage::disk('public')->delete($lesson->video_path);
+            }
+            $data['video_path'] = $request->file('video')->store('lessons/videos', 'public');
         }
         
         $lesson->update($data);
