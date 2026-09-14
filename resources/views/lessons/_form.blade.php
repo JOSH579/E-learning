@@ -80,7 +80,9 @@
         accept="video/mp4,video/webm,video/quicktime,.mp4,.webm,.mov"
         class="w-full border border-slate-300 bg-white px-3 py-2 text-sm"
     >
-    <p class="mt-1 text-xs text-slate-500">MP4 / WebM / MOV, max about 100MB.</p>
+    <p class="mt-1 text-xs text-slate-500">
+        MP4 / WebM / MOV, max about 100MB. Aim for 720p and under ~40MB for reliable uploads
+    (Laravel allows up to 100MB).</p>
     @if ($lesson?->video_path)
         <p class="mt-2 text-sm">
             Current:

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="scroll-smooth">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -28,16 +28,30 @@
                         @csrf
                         <button type="submit" class="text-slate-600 hover:text-slate-900">Log out</button>
                     </form>
-                @else
-                    <a href="{{ route('blaze') }}" class="text-slate-600 hover:text-slate-900">Home</a>
-                    <a href="{{ route('register') }}" class="text-slate-600 hover:text-slate-900">Register</a>
-                    <a href="{{ route('login') }}" class="text-slate-600 hover:text-slate-900">Log in</a>
-                @endauth
+                    @else
+                        <a href="{{ route('blaze') }}" class="text-slate-600 hover:text-slate-900">Home</a>
+                        <a href="{{ route('tranding') }}" class="text-slate-600 hover:text-slate-900">Trending</a>
+                        <a href="{{ route('login') }}" class="text-slate-600 hover:text-slate-900">Log in</a>
+                        <a
+                            href="{{ route('register') }}"
+                            class="bg-slate-900 px-3 py-1.5 font-medium text-white hover:bg-slate-800"
+                        >
+                            Register
+                        </a>
+                    @endauth
             </nav>
         </div>
     </header>
 
-    <main class="mx-auto max-w-5xl px-4 py-8">
+    @hasSection('hero')
+        @yield('hero')
+    @endif
+
+    <main @class([
+    'mx-auto max-w-5xl px-4',
+    'py-8' => ! View::hasSection('hero'), 
+    'pb-8 pt-10' => View::hasSection('hero'),
+    ])>
         @if (session('success'))
             <p class="mb-6 border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-800">
                 {{ session('success') }}
